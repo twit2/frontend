@@ -1,0 +1,26 @@
+@import "../../style/colors.scss";
+
+.loading-container {
+    background-color: $colorPrimary;
+    height: 100%;
+    width: 100%;
+    display: flex;
+
+    // Spinner using border trick
+    .spinner {
+        margin: auto;
+        height: 40px;
+        width: 40px;
+        border: 3px solid white;
+        border-right-color: transparent;
+        border-radius: 100%;
+        animation: 1s spinner-rotate linear infinite;
+    }
+}
+
+// Spinner infinite spin animation
+@keyframes spinner-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
