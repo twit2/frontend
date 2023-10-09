@@ -1,0 +1,70 @@
+@import "../../style/colors.scss";
+
+.page.home {
+    display: flex;
+    background: url(./HomeBackground.jpg);
+}
+
+// right panel
+.page.home>.right {
+    margin-left: auto;
+    background-color: black;
+    padding: 2.5em;
+    box-sizing: border-box;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+
+    // Title text
+    .title {
+        font-size: 38px;
+        font-weight: bold;
+        margin-bottom: 2.5rem;
+    }
+
+    // Subtitle text
+    .subtitle {
+        margin-bottom: 2.5rem;
+    }
+
+    // Separator
+    .separator {
+        height: 1px;
+        background-color: $colorSecondary;
+        margin-bottom: 2.5rem;
+    }
+
+    // Form buttons
+    .buttons {
+        flex: 1;
+
+        button {
+            width: 100%;
+            margin-bottom: 1em;
+            font-weight: bold;
+            cursor: pointer;
+
+            border: 1px solid $colorSecondary;
+            border-radius: 100px;
+            background-color: $colorPrimary;
+            color: $colorSecondary;
+            padding: 0.5em;
+
+            &:hover {
+                color: $colorPrimary;
+                background-color: $colorSecondary;
+            }
+        }
+    }
+
+    // Link box
+    .links>a {
+        color: $colorSecondary;
+        text-decoration: none;
+
+        &:visited {
+            color: $colorSecondary;
+        }
+    }
+}

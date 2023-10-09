@@ -1,0 +1,8 @@
+// SPA styles
+@import "../colors.scss";
+
+html, body, #root, .page {
+    height: 100%;
+    width: 100%;
+    color: $colorSecondary;
+}
