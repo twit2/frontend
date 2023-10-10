@@ -19,5 +19,5 @@ interface ProfileBoxProps {
  */
 export const ProfileBox = (props: ProfileBoxProps)=><div className="profile-box">
     <div className="avatar" style={{ /*backgroundImage: `url(${props.avatarUrl})`*/ }}></div>
-    <div className="username">{props.username}</div>
+    <div className="username">@{props.username}</div>
 </div>

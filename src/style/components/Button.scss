@@ -10,6 +10,17 @@ button {
     color: $colorSecondary;
     padding: 0.5em;
 
+    // Primary variant
+    &.primary {
+        color: $colorAccent;
+        border-color: $colorAccent;
+
+        &:hover, &.selected {
+            color: $colorPrimary;
+            background-color: $colorAccent
+        }
+    }
+
     &:hover, &.selected {
         color: $colorPrimary;
         background-color: $colorSecondary;
