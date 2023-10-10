@@ -4,6 +4,7 @@ import { useState } from "react";
 import { LoadingContainer } from "../../components/basic/LoadingContainer";
 import { Sidebar } from "../../components/layout/Sidebar";
 import "./MainPage.scss";
+import { FeedView } from "./sublayouts/FeedView";
 
 /**
  * Represents a sub layout.
@@ -47,7 +48,7 @@ export const MainPage = ()=> {
                 <Sidebar/>
             </div>
             <div className="right">
-
+                { (subLayout.id == SubLayoutView.Feed) ? <FeedView/> : '' }
             </div>
         </div>
     </div>;

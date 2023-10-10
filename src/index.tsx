@@ -17,7 +17,7 @@ export default function App() {
           <Route path="/">
             <Route index element={<HomePage/>} />
           </Route>
-          <Route path="/main">
+          <Route path="/feed">
             <Route index element={<MainPage/>} />
           </Route>
         </Routes>
