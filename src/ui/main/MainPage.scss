@@ -1,0 +1,12 @@
+@import "../../style/colors.scss";
+
+.page.main {
+    display: flex;
+    background-color: $colorTertiary;
+}
+
+.main-layout {
+    height: 100%;
+    margin: auto;
+    background-color: $colorT4;
+}

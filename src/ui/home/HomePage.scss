@@ -42,19 +42,6 @@
         button {
             width: 100%;
             margin-bottom: 1em;
-            font-weight: bold;
-            cursor: pointer;
-
-            border: 1px solid $colorSecondary;
-            border-radius: 100px;
-            background-color: $colorPrimary;
-            color: $colorSecondary;
-            padding: 0.5em;
-
-            &:hover {
-                color: $colorPrimary;
-                background-color: $colorSecondary;
-            }
         }
     }
 

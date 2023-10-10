@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { LoadingContainer } from "../../components/basic/LoadingContainer";
 import { Sidebar } from "../../components/layout/Sidebar";
+import "./MainPage.scss";
 
 /**
  * Represents a sub layout.
@@ -43,7 +44,7 @@ export const MainPage = ()=> {
     return loading ? <LoadingContainer/> : <div className="page main">
         <div className="main-layout">
             <div className="left">
-                <Sidebar items={[]}/>
+                <Sidebar/>
             </div>
             <div className="right">
 

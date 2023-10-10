@@ -1,13 +1,49 @@
 .sidebar {
+    width: 100%;
+    padding: 1.5em;
+    box-sizing: border-box;
+    text-align: center;
+
+    .title {
+        font-size: 28px;
+        font-weight: bold;
+    }
+
     .profile-box {
+        margin-top: 2em;
+        margin-bottom: 2em;
+
         // Avatar image
         .avatar {
             background-image: url("../../assets/debug.png");
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            height: 54px;
+            width: 54px;
+            border-radius: 100px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 1em;
         }
 
         // Username box
         .username {
             text-align: center;
+        }
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+
+        :not(.primary) {
+            border-color: transparent;
+        }
+
+        button {
+            margin-bottom: 1em;
+            min-width: 200px;
         }
     }
 }

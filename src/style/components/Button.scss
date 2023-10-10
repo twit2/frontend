@@ -1,0 +1,17 @@
+@import "../colors.scss";
+
+button {
+    font-weight: bold;
+    cursor: pointer;
+
+    border: 1px solid $colorSecondary;
+    border-radius: 100px;
+    background-color: transparent;
+    color: $colorSecondary;
+    padding: 0.5em;
+
+    &:hover, &.selected {
+        color: $colorPrimary;
+        background-color: $colorSecondary;
+    }
+}
