@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 import { HomePage } from './ui/home/HomePage';
 import "./App.scss";
-import { LoadingContainer } from './components/basic/LoadingContainer';
+import { MainPage } from './ui/main/MainPage';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -18,7 +18,7 @@ export default function App() {
             <Route index element={<HomePage/>} />
           </Route>
           <Route path="/main">
-            <Route index element={<LoadingContainer/>} />
+            <Route index element={<MainPage/>} />
           </Route>
         </Routes>
       </BrowserRouter>
