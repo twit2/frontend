@@ -9,6 +9,7 @@ export const Sidebar = (props: { })=><div className="sidebar">
     <div className="title">Twit2</div>
     <ProfileBox username="Demo User" avatarUrl=""/>
     <div className="buttons">
+        <button className="">Discover</button>
         <button className="selected">My Feed</button>
         <button className="">Notifications</button>
         <button className="">Direct Messages</button>
