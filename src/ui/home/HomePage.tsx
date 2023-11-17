@@ -1,11 +1,20 @@
 // Home Page
+import { useState } from "react";
 import "./HomePage.scss";
+
+enum MainUI {
+    Main = 0,
+    Login = 1,
+    Register = 2
+}
 
 /**
  * Renders the home page.
  * @returns 
  */
 export const HomePage = ()=>{
+    let [dialog, setDialog] = useState(MainUI.Main);
+
     return <div className="page home">
         <div className="right form">
             <div className="title">Twit2</div>
