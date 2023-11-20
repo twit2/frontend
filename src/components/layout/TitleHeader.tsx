@@ -8,8 +8,14 @@ interface TitleHeaderProps {
      * Header title
      */
     title: string;
+
+    /**
+     * Sets a back action.
+     */
+    backAction?: ()=>void;
 }
 
 export const TitleHeader = (props: TitleHeaderProps)=><div className="hdr-title">
+    { (props.backAction != null) ? <div className="back"></div> : '' }
     <span className="text">{ props.title }</span>
 </div>

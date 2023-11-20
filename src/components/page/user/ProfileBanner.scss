@@ -1,0 +1,47 @@
+@import "../../../style/colors.scss";
+
+.ui-pfbanner {
+    width: 100%;
+    background-color: black;
+    box-sizing: border-box;
+    margin-bottom: 90px;
+
+    .profile {
+        padding: 25px;
+        transform: translateY(calc(50%));
+        display: flex;
+        
+        >.avatar {
+            background-image: url(../../../assets/debug.png);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 128px;
+            width: 128px;
+            border-radius: 100%;
+        }
+
+        >.information {
+            flex: 1;
+            margin-left: 2em;
+
+            >.name {
+                margin-top: 0.75em;
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            >.extra-box {
+                margin-top: 2em;
+                line-height: 1.5;
+                color: gray;
+
+                .date {
+                    margin-bottom: 1em;
+                }
+            }
+        }
+
+        border-bottom: 1px solid $colorT5;
+    }
+}

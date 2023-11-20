@@ -1,10 +1,12 @@
 // Main Page
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoadingContainer } from "../../components/basic/LoadingContainer";
 import { Sidebar } from "../../components/layout/Sidebar";
 import "./MainPage.scss";
-import { FeedView } from "./sublayouts/FeedView";
+import { PartialUser } from "../../api/user/PartialUser";
+import { sendAPIRequest } from "../../api/APIRequester";
+import { Outlet } from "react-router-dom";
 
 /**
  * Represents a sub layout.
@@ -36,19 +38,41 @@ enum SubLayoutView {
  * @returns The main page.
  */
 export const MainPage = ()=> {
-    const [loading, setLoading] = useState(true);
-    const [subLayout, setSubLayout] = useState<SubLayout<any>>({ id: SubLayoutView.Feed, args: null });
+    let fetchBusy = false;
+    const [user, setUser] = useState<PartialUser>();
 
-    // Debug: no backend, disable loading
-    setTimeout(()=>setLoading(false), 200);
+    useEffect(()=>{
+        const fetchUser = async()=> {
+            if(!fetchBusy)
+                fetchBusy = true;
+            else
+                return;
+
+            try {
+                const userResp = await sendAPIRequest<PartialUser>("/user/@me", "GET");
+
+                if((userResp.data == null) || (!userResp.success)) {
+                    // Say an error occured
+                    alert("Failed to fetch user data - this is a bug!");
+                }
+
+                setUser(userResp.data);
+            } catch(e) {
+                // Inform user of error
+                console.error(e);
+            }
+        }
+
+        fetchUser();
+    });
     
-    return loading ? <LoadingContainer/> : <div className="page main">
+    return (user == null) ? <LoadingContainer/> : <div className="page main">
         <div className="main-layout">
             <div className="left">
-                <Sidebar/>
+                <Sidebar username={user?.username} avatarUrl={user?.avatarUrl}/>
             </div>
             <div className="right">
-                { (subLayout.id == SubLayoutView.Feed) ? <FeedView/> : '' }
+                <Outlet/>
             </div>
         </div>
     </div>;

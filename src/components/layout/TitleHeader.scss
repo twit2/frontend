@@ -4,4 +4,14 @@
     padding: 1em;
     font-weight: bold;
     border-bottom: 1px solid $colorT5;
+    display: flex;
+    align-items: center;
+
+    .back {
+        height: 24px;
+        width: 24px;
+        background-image: url(../../assets/icons/svg/back.svg);
+        margin-right: 0.5em;
+        cursor: pointer;
+    }
 }

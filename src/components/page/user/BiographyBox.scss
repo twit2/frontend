@@ -1,0 +1,13 @@
+@import "../.././../style/colors.scss";
+
+.bio-box {
+    padding: 20px;
+
+    .section-title {
+        font-weight: bold;
+        color: gray;
+        margin-bottom: 1em;
+    }
+
+    border-bottom: 1px solid $colorT5;
+}

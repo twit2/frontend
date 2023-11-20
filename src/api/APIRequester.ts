@@ -8,16 +8,18 @@ import { APIResponse } from "./APIResponse";
  * @param body The body to send.
  */
 export async function sendAPIRequest<T>(path: string, method: string, body?: any): Promise<APIResponse<T>> {
+    const hdr = {
+        'Authorization': `Bearer ${localStorage.getItem('auth-token') ?? 'none'}`
+    }
+
     const req = await fetch(`${APIConfiguration.apiGwUrl}${path}`, {
         method,
         headers: (method !== "GET") ? {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('auth-token') ?? 'none'}`
-        } : {},
+            ...hdr,
+            ...{'Content-Type': 'application/json'}
+        } : hdr,
         body: (method !== "GET") ? JSON.stringify(body) : undefined
     });
-
-    console.log(APIConfiguration.apiGwUrl);
 
     const json = await req.json() as APIResponse<T>;
     return json;

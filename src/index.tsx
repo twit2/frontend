@@ -5,6 +5,8 @@ import reportWebVitals from './reportWebVitals';
 import { HomePage } from './ui/home/HomePage';
 import "./App.scss";
 import { MainPage } from './ui/main/MainPage';
+import { FeedView } from './ui/main/sublayouts/FeedView';
+import { ProfileView } from './ui/main/sublayouts/ProfileView';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -17,8 +19,9 @@ export default function App() {
           <Route path="/">
             <Route index element={<HomePage/>} />
           </Route>
-          <Route path="/feed">
-            <Route index element={<MainPage/>} />
+          <Route element={<MainPage />}>
+              <Route path="/feed" element={<FeedView/>} />
+              <Route path="/user/:name" element={<ProfileView/>} />
           </Route>
         </Routes>
       </BrowserRouter>
