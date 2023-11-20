@@ -27,7 +27,7 @@ export const MainPage = ()=> {
 
     // Fetch user profile
     useEffect(()=>{
-        const fetchUser = async()=> {
+        const fetchData = async()=> {
             if(!fetchBusy)
                 setFetchBusy(true);
             else
@@ -38,7 +38,7 @@ export const MainPage = ()=> {
 
                 if((userResp.data == null) || (!userResp.success)) {
                     // Say an error occured
-                    alert("Failed to fetch user data - this is a bug!");
+                    // alert("Failed to fetch user data - this is a bug!");
                 }
 
                 setUser(userResp.data);
@@ -48,7 +48,7 @@ export const MainPage = ()=> {
             }
         }
 
-        fetchUser();
+        fetchData();
     });
     
     return (user == null) ? <LoadingContainer/> : <>
