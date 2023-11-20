@@ -11,13 +11,13 @@ export const ProfileView = ()=>{
     const params = useParams();
     const targetUsername = params.name as string;
     const [user, setUser] = useState<PartialUser>();
-    const [fetchBusy, setFetchBusy] = useState(false);
+    const [currentProfile, setCurrentProfile] = useState("");
     const navigate = useNavigate();
     
     useEffect(()=>{
         const fetchUser = async()=> {
-            if(!fetchBusy)
-                setFetchBusy(true);
+            if(currentProfile !== targetUsername)
+                setCurrentProfile(targetUsername);
             else
                 return;
 
