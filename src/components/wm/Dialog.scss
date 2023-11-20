@@ -22,7 +22,7 @@
         // Top part
         >.top {
             display: flex;
-            padding: 20px;
+            padding: 25px;
             font-size: 16px;
             font-weight: bold;
 
@@ -49,8 +49,9 @@
 
         >.content {
             flex: 1;
-            padding: 20px;
+            padding: 25px;
             padding-top: 0;
+            font-size: 14px;
         }
     }
 }

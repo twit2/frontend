@@ -1,0 +1,16 @@
+// Form styles
+ 
+.ui-form {
+    .explanation {
+        margin-top: 0;
+        margin-bottom: 1.5em;
+    }
+
+    button {
+        width: 100%;
+
+        &:last-child {
+            margin-top: 1em;
+        }
+    }
+}
