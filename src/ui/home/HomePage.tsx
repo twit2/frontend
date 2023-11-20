@@ -4,6 +4,7 @@ import "./HomePage.scss";
 import { DialogContainer } from "../../components/wm/DialogContainer";
 import { Dialog } from "../../components/wm/Dialog";
 import { LoginDialog } from "./dialogs/LoginDialog";
+import { RegisterDialog } from "./dialogs/RegisterDialog";
 
 enum DlgState {
     None = 0,
@@ -25,7 +26,11 @@ export const HomePage = ()=>{
                     case DlgState.Login:
                         return <Dialog title={"Log In"} onclose={()=>setDialog(DlgState.None)}>
                             <LoginDialog/>
-                        </Dialog>
+                        </Dialog>;
+                    case DlgState.Register:
+                        return <Dialog title={"Create Account"} onclose={()=>setDialog(DlgState.None)}>
+                            <RegisterDialog/>
+                        </Dialog>;
                 }
             })() }
         </DialogContainer>
@@ -36,7 +41,7 @@ export const HomePage = ()=>{
                 <div className="separator"></div>
                 <div className="buttons">
                     <button onClick={()=>setDialog(DlgState.Login)}>Log In</button>
-                    <button>Create Account</button>
+                    <button onClick={()=>setDialog(DlgState.Register)}>Create Account</button>
                 </div>
                 <div className="links">
                     <a href="/tos">Terms of Service</a> | 

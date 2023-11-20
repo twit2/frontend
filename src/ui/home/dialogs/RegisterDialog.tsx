@@ -6,7 +6,7 @@ import { LoadingContainer } from "../../../components/basic/LoadingContainer";
 import { sendAPIRequest } from "../../../api/APIRequester";
 import { useNavigate } from "react-router-dom";
 
-export const LoginDialog = ()=>{
+export const RegisterDialog = ()=>{
     let [error, setError] = useState("");
     let [busy, setBusy] = useState(false);
     let [username, setUsername] = useState("");
@@ -25,10 +25,10 @@ export const LoginDialog = ()=>{
         setBusy(true);
 
         // Send login request
-        const result = await sendAPIRequest<string>("/auth/login", "POST", { username, password });
+        const result = await sendAPIRequest<string>("/auth/register", "POST", { username, password });
         
         if(!result.success) {
-            setError(`Could not login: ${result.message}`);
+            setError(`Could not register: ${result.message}`);
             setBusy(false);
         } else {
             // Store token and navigate to home page
@@ -37,16 +37,19 @@ export const LoginDialog = ()=>{
         }
     }
 
-    return <div className="login-dlg">
+    return <div className="register-dlg">
         <Form onsubmit={()=>{}}>
             { busy ? <LoadingContainer/> : <>
                 <p className="explanation">
-                    Enter your account details below to log in.
+                    To create an account, enter your details below.
                 </p>
                 <FormInputField label="Username" type={"text"} onchange={(v)=>setUsername(v)} value={username} onsubmit={(v)=>submit()}/>
                 <FormInputField label="Password" type={"password"} onchange={(v)=>setPassword(v)} value={password} onsubmit={(v)=>submit()}/>
+                <p>
+                    By creating a new account, you agree to the <a href="/tos">Terms of Service</a>.
+                </p>
                 { (error !== "") ? <ErrorBox text={error}/> : '' }
-                <button onClick={()=>submit()}>Log In</button>
+                <button onClick={()=>submit()}>Create Account</button>
             </> }
         </Form>
     </div>
