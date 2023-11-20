@@ -38,13 +38,13 @@ enum SubLayoutView {
  * @returns The main page.
  */
 export const MainPage = ()=> {
-    let fetchBusy = false;
+    const [fetchBusy, setFetchBusy] = useState(false);
     const [user, setUser] = useState<PartialUser>();
 
     useEffect(()=>{
         const fetchUser = async()=> {
             if(!fetchBusy)
-                fetchBusy = true;
+                setFetchBusy(true);
             else
                 return;
 
