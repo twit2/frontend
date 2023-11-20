@@ -1,0 +1,27 @@
+.new-post-dlg {
+    .ui-post-editor {
+        margin-bottom: 1em;
+    }
+
+    .bottom {
+        display: flex;
+        align-items: center;
+
+        .info {
+            font-size: 16px;
+
+            .overflow {
+                color: red;
+            }
+        }
+
+        .buttons {
+            flex: 1;
+            text-align: right;
+    
+            button {
+                padding: 10px 25px;
+            }
+        }
+    }
+}

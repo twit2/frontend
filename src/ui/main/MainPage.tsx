@@ -7,30 +7,13 @@ import "./MainPage.scss";
 import { PartialUser } from "../../api/user/PartialUser";
 import { sendAPIRequest } from "../../api/APIRequester";
 import { Outlet } from "react-router-dom";
+import { DialogContainer } from "../../components/wm/DialogContainer";
+import { NewPostDialog } from "./dialogs/NewPostDialog";
+import { Dialog } from "../../components/wm/Dialog";
 
-/**
- * Represents a sub layout.
- */
-interface SubLayout<T> {
-    /**
-     * Sublayout view ID.
-     */
-    id: SubLayoutView;
-
-    /**
-     * Arguments to pass to sub layout.
-     */
-    args: T;
-}
-
-/**
- * Sub layout view enum.
- * 
- * Contains all possible sub layouts for the main layout.
- */
-enum SubLayoutView {
-    Feed = 0,
-    Profile = 1
+enum DialogId {
+    None = 0,
+    NewPost = 1
 }
 
 /**
@@ -40,7 +23,9 @@ enum SubLayoutView {
 export const MainPage = ()=> {
     const [fetchBusy, setFetchBusy] = useState(false);
     const [user, setUser] = useState<PartialUser>();
+    const [dialog, setDialog] = useState(DialogId.None);
 
+    // Fetch user profile
     useEffect(()=>{
         const fetchUser = async()=> {
             if(!fetchBusy)
@@ -66,15 +51,28 @@ export const MainPage = ()=> {
         fetchUser();
     });
     
-    return (user == null) ? <LoadingContainer/> : <div className="page main">
-        <div className="main-layout">
-            <div className="left">
-                <Sidebar username={user?.username} avatarUrl={user?.avatarUrl}/>
-            </div>
-            <div className="right">
-                <Outlet/>
+    return (user == null) ? <LoadingContainer/> : <>
+        <DialogContainer>
+            { (()=>{
+                switch(dialog) {
+                    case DialogId.NewPost:
+                        return <Dialog title="New Post" onclose={()=>setDialog(DialogId.None)}>
+                            <NewPostDialog/>
+                        </Dialog>;
+                }
+                return '';
+            })() }
+        </DialogContainer>
+        <div className="page main">
+            <div className="main-layout">
+                <div className="left">
+                    <Sidebar username={user?.username} avatarUrl={user?.avatarUrl} primaryAction={()=>setDialog(DialogId.NewPost)}/>
+                </div>
+                <div className="right">
+                    <Outlet/>
+                </div>
             </div>
         </div>
-    </div>;
+    </>;
 }
 

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 interface SidebarProps {
     username: string;
     avatarUrl?: string | null;
+    primaryAction?: ()=>void;
 }
 
 /**
@@ -15,8 +16,8 @@ export const Sidebar = (props: SidebarProps)=> {
     const navigate = useNavigate();
 
     const links = [
-        { name: "Discover", link: "/discover", selected: false },
         { name: "Feed", link: "/feed", selected: false },
+        { name: "Discover", link: "/discover", selected: false },
         { name: "Notifications", link: "/notifications", selected: false },
         { name: "Messages", link: "/dm", selected: false },
         { name: "Profile", link: "/user/@%U".replace("%U", props.username), selected: false },
@@ -35,7 +36,7 @@ export const Sidebar = (props: SidebarProps)=> {
         <ProfileBox username={props.username ?? '<unknown>'} avatarUrl={props.avatarUrl ?? ''}/>
         <div className="buttons">
             { links.map(x => <button className={(x.selected ? 'selected' : '')} key={x.link} onClick={()=>navigate(x.link)}>{x.name}</button>) }
-            <button className="primary" onClick={()=>alert('todo')}>+ Create Post</button>
+            <button className="primary" onClick={()=>props.primaryAction?.call(this)}>+ Create Post</button>
         </div>
     </div>;
 }
