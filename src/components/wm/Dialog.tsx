@@ -1,23 +1,24 @@
-// Home Page
-import { useState } from "react";
+import { MouseEventHandler } from "react";
 import "./Dialog.scss";
 
 interface DialogProps {
     title: string;
-    onclose: ()=>void;
-    children: any;
+    onclose: MouseEventHandler<HTMLDivElement>;
+    children?: any;
 }
 
 export const Dialog = (props: DialogProps)=>{
-    return <div className="ui-dialog">
-        <div className="top">
-            <div className="title">{props.title}</div>
-            <div className="buttons">
-                <div className="close">X</div>
+    return <div className="ui-dlg-backdrop">
+        <div className="ui-dialog">
+            <div className="top">
+                <div className="title">{props.title}</div>
+                <div className="buttons">
+                    <div className="close" onClick={props.onclose}></div>
+                </div>
             </div>
-        </div>
-        <div className="content">
-            { props.children }
+            <div className="content">
+                { props.children }
+            </div>
         </div>
     </div>
 }

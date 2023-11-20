@@ -1,15 +1,13 @@
-// Home Page
-import { useState } from "react";
-import "./LoginPage.scss";
+import "./LoginDialog.scss";
 import { Dialog } from "../../../components/wm/Dialog";
 
 /**
  * Renders the home page.
  * @returns 
  */
-export const LoginPage = ()=>{
-    return <Dialog title="Log In" onclose={()=>{}}>
-        <div>test</div>
-    </Dialog>
+export const LoginDialog = ()=>{
+    return <div>
+        Test text
+    </div>
 }
 

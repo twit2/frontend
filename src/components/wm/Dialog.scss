@@ -1,0 +1,56 @@
+@import "../../style/colors.scss";
+
+.ui-dlg-backdrop {
+    background-color: rgba(0, 0, 0, 0.2);
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+
+    .ui-dialog {
+        min-width: 150px;
+        min-height: 100px;
+        margin: auto;
+        background-color: $colorPrimary;
+        color: $colorSecondary;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+
+        // Top part
+        >.top {
+            display: flex;
+            padding: 20px;
+            font-size: 16px;
+            font-weight: bold;
+
+            .title {
+                flex: 1;
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+
+            .buttons {
+                cursor: pointer;
+                user-select: none;
+
+                >* {
+                    height: 24px;
+                    width: 24px;
+                }
+
+                .close {
+                    background-image: url(../../assets/icons/svg/close.svg);
+                }
+            }
+        }
+
+        >.content {
+            flex: 1;
+            padding: 20px;
+            padding-top: 0;
+        }
+    }
+}
