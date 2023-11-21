@@ -12,7 +12,7 @@ export async function sendAPIRequest<T>(path: string, method: string, body?: any
         'Authorization': `Bearer ${localStorage.getItem('auth-token') ?? 'none'}`
     }
 
-    const req = await fetch(`${APIConfiguration.apiGwUrl}${path}`, {
+    const res = await fetch(`${APIConfiguration.apiGwUrl}${path}`, {
         method,
         headers: (method !== "GET") ? {
             ...hdr,
@@ -21,6 +21,16 @@ export async function sendAPIRequest<T>(path: string, method: string, body?: any
         body: (method !== "GET") ? JSON.stringify(body) : undefined
     });
 
-    const json = await req.json() as APIResponse<T>;
+    let json;
+    let clone = res.clone();
+
+    try {
+        json = await res.json() as APIResponse<T>;
+    } catch(e) {
+        console.error(await clone.text());
+        console.error(e);
+        throw e;
+    }
+
     return json;
 }

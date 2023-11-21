@@ -34,16 +34,16 @@ export const ProfileView = ()=>{
                 }
 
                 // Get posts
-                const postResp = await sendAPIRequest<Post[]>(`/post/${userResp.data?.id}/0`, "GET");
+                // const postResp = await sendAPIRequest<Post[]>(`/post/${userResp.data?.id}/0`, "GET");
 
-                if((postResp.data == null) || (!postResp.success)) {
-                    // Say an error occured
-                    // TODO put visual error instead
-                    // alert("No posts to retrieve.");
-                    return;
-                }
+                // if((postResp.data == null) || (!postResp.success)) {
+                //     // Say an error occured
+                //     // TODO put visual error instead
+                //     // alert("No posts to retrieve.");
+                //     return;
+                // }
 
-                setPosts(postResp.data);
+                // setPosts(postResp.data);
 
                 // Do this last since this changes the visual ui
                 setUser(userResp.data);

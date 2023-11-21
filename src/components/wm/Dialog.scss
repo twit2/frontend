@@ -1,6 +1,8 @@
 @import "../../style/colors.scss";
 
 .ui-dlg-backdrop {
+    z-index: 10000;
+    position: relative;
     background-color: rgba(0, 0, 0, 0.2);
     position: fixed;
     left: 0;
