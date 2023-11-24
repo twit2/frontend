@@ -11,11 +11,11 @@
     background-color: $colorT4;
     display: flex;
 
-    .left {
+    >.left {
         border-right: 1px solid $colorT5;
     }
 
-    .right {
+    >.right {
         flex: 1;
         width: 550px;
 

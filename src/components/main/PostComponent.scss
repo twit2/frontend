@@ -1,0 +1,53 @@
+@import "../../style/colors.scss";
+
+.ui-post {
+    padding: 15px;
+    display: flex;
+    border-bottom: 1px solid #292929;
+
+    .left {
+        .avatar {
+            height: 42px;
+            width: 42px;
+            background-image: url(../../assets/icons/svg/frowning2.svg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 100%;
+        }
+
+        margin-right: 15px;
+    }
+
+    .right {
+        flex: 1;
+
+        .user-info {
+            margin-bottom: 10px;
+            
+            a {
+                font-weight: bold;
+                color: $colorSecondary;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+                &:visited {
+                    color: $colorSecondary;
+                }
+            }
+
+            >.uname {
+                color: gray;
+            }
+        }
+
+        .date-marker {
+            margin-top: 10px;
+            color: gray;
+            text-align: right;
+        }
+    }
+}

@@ -7,6 +7,9 @@ import { ProfileBanner } from "../../../components/page/user/ProfileBanner";
 import { sendAPIRequest } from "../../../api/APIRequester";
 import { BiographyBox } from "../../../components/page/user/BiographyBox";
 import { Post } from "../../../api/posts/Post";
+import { PostComponent } from "../../../components/main/PostComponent";
+
+const PAGE_SIZE = 10;
 
 export const ProfileView = ()=>{
     const params = useParams();
@@ -34,16 +37,16 @@ export const ProfileView = ()=>{
                 }
 
                 // Get posts
-                // const postResp = await sendAPIRequest<Post[]>(`/post/${userResp.data?.id}/0`, "GET");
+                const postResp = await sendAPIRequest<Post[]>(`/post/${userResp.data?.id}/0`, "GET");
 
-                // if((postResp.data == null) || (!postResp.success)) {
-                //     // Say an error occured
-                //     // TODO put visual error instead
-                //     // alert("No posts to retrieve.");
-                //     return;
-                // }
+                if((postResp.data == null) || (!postResp.success)) {
+                    // Say an error occured
+                    // TODO put visual error instead
+                    // alert("No posts to retrieve.");
+                    return;
+                }
 
-                // setPosts(postResp.data);
+                setPosts(postResp.data);
 
                 // Do this last since this changes the visual ui
                 setUser(userResp.data);
@@ -61,6 +64,7 @@ export const ProfileView = ()=>{
         { (user == null) ? <LoadingContainer/> : <>
             <ProfileBanner user={user}/>
             <BiographyBox text={user.biography ?? "(none provided)"}/>
+            { posts.map(x => <PostComponent post={x} user={user} key={x.id}/>) }
         </> }
     </div>
 }
