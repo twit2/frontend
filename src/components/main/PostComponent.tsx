@@ -11,7 +11,7 @@ export const PostComponent = (props: { post: Post, user: PartialUser, static: bo
             nav(`/user/@${props.user.username}/post/${props.post.id}`)
     }}>
         <div className="left">
-            <div className="avatar" style={{ /* backgroundImage: `${props.user.avatarUrl}` */ }}></div>
+            <div className="avatar" onClick={()=>nav(`/user/@${props.user.username}`)} style={{ /* backgroundImage: `${props.user.avatarUrl}` */ }}></div>
         </div>
         <div className="right">
             <div className="user-info">

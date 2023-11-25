@@ -6,54 +6,40 @@ import { LoadingContainer } from "../../../components/basic/LoadingContainer";
 import { ProfileBanner } from "../../../components/page/user/ProfileBanner";
 import { sendAPIRequest } from "../../../api/APIRequester";
 import { BiographyBox } from "../../../components/page/user/BiographyBox";
-import { Post } from "../../../api/posts/Post";
-import { PostComponent } from "../../../components/main/PostComponent";
 import { AppContext } from "../../../app/AppContext";
-
-const PAGE_SIZE = 10;
+import { PostBox } from "../../../components/main/PostBox";
 
 export const ProfileView = ()=>{
     const params = useParams();
     const targetUsername = params.name as string;
     const [user, setUser] = useState<PartialUser>();
     const [currentProfile, setCurrentProfile] = useState("");
-    const [posts, setPosts] = useState<Post[]>([]);
     const navigate = useNavigate();
     
-    useEffect(()=>{
-        const fetchUser = async()=> {
-            if(currentProfile !== targetUsername)
-                setCurrentProfile(targetUsername);
-            else
+    const fetchUser = async()=> {
+        if(currentProfile !== targetUsername)
+            setCurrentProfile(targetUsername);
+        else
+            return;
+
+        try {
+            // Get user
+            const userResp = await sendAPIRequest<PartialUser>(`/user/${targetUsername}`, "GET");
+
+            if((userResp.data == null) || (!userResp.success)) {
+                AppContext.ui.alert({ title: "Error", content: "Failed to refresh user profile!" })
                 return;
-
-            try {
-                // Get user
-                const userResp = await sendAPIRequest<PartialUser>(`/user/${targetUsername}`, "GET");
-
-                if((userResp.data == null) || (!userResp.success)) {
-                    AppContext.ui.alert({ title: "Error", content: "Failed to refresh user profile!" })
-                    return;
-                }
-
-                // Get posts
-                const postResp = await sendAPIRequest<Post[]>(`/post/${userResp.data?.id}/0`, "GET");
-
-                if((postResp.data == null) || (!postResp.success)) {
-                    AppContext.ui.alert({ title: "Error", content: "Unable to retrieve posts." })
-                    return;
-                }
-
-                setPosts(postResp.data);
-
-                // Do this last since this changes the visual ui
-                setUser(userResp.data);
-            } catch(e) {
-                // Inform user of error
-                console.error(e);
             }
-        }
 
+            // Do this last since this changes the visual ui
+            setUser(userResp.data);
+        } catch(e) {
+            // Inform user of error
+            console.error(e);
+        }
+    }
+
+    useEffect(()=>{
         fetchUser();
     });
     
@@ -62,7 +48,7 @@ export const ProfileView = ()=>{
         { (user == null) ? <LoadingContainer/> : <>
             <ProfileBanner user={user}/>
             <BiographyBox text={user.biography ?? "(none provided)"}/>
-            { posts.map(x => <PostComponent post={x} user={user} key={x.id} static={false}/>) }
+            <PostBox targetUser={user}/>
         </> }
     </div>
 }

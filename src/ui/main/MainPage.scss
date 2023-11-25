@@ -18,6 +18,7 @@
     >.right {
         flex: 1;
         width: 550px;
+        overflow: auto;
 
         .loading-container {
             background-color: transparent;

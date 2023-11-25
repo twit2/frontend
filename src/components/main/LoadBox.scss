@@ -1,0 +1,16 @@
+@import "../../style/colors.scss";
+
+.ui-load-box {
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+
+    span {
+        color: $colorAccent;
+        cursor: pointer;
+    }
+
+    .loading-container {
+        margin: 0 !important;
+    }
+}
