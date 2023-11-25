@@ -4,14 +4,12 @@ import { ErrorBox } from "../../../components/form/ErrorBox"
 import { PostEditorComponent } from "../../../components/post/PostEditorComponent"
 import { useState } from "react";
 import { sendAPIRequest } from "../../../api/APIRequester";
-import { useNavigate } from "react-router-dom";
 
 export const NewPostDialog = (props: {}) => {
     const CHRS_MAX = 280;
 
     let [error, setError] = useState("");
     let [postText, setPostText] = useState("");
-    let navigate = useNavigate();
 
     /**
      * Submits the post.
@@ -26,12 +24,10 @@ export const NewPostDialog = (props: {}) => {
             textContent: postText
         });
 
-        if(!apiReq.success) {
+        if(!apiReq.success)
             setError(apiReq.message);
-            return;
-        } else {
+        else
             document.location.reload(); // Hacky!!!
-        }
     } 
 
     return <div className="new-post-dlg">
