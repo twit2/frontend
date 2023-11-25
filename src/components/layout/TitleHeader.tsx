@@ -16,6 +16,6 @@ interface TitleHeaderProps {
 }
 
 export const TitleHeader = (props: TitleHeaderProps)=><div className="hdr-title">
-    { (props.backAction != null) ? <div className="back"></div> : '' }
+    { (props.backAction != null) ? <div className="back" onClick={()=>props.backAction?.call(this)}></div> : '' }
     <span className="text">{ props.title }</span>
 </div>

@@ -1,26 +1,24 @@
-import { useNavigate, useParams } from "react-router-dom"
-import { TitleHeader } from "../../../components/layout/TitleHeader"
 import { useEffect, useState } from "react";
-import { PartialUser } from "../../../api/user/PartialUser";
-import { LoadingContainer } from "../../../components/basic/LoadingContainer";
-import { ProfileBanner } from "../../../components/page/user/ProfileBanner";
-import { sendAPIRequest } from "../../../api/APIRequester";
-import { BiographyBox } from "../../../components/page/user/BiographyBox";
 import { Post } from "../../../api/posts/Post";
+import { TitleHeader } from "../../../components/layout/TitleHeader";
+import { useNavigate, useParams } from "react-router-dom";
+import { PartialUser } from "../../../api/user/PartialUser";
+import { sendAPIRequest } from "../../../api/APIRequester";
+import { LoadingContainer } from "../../../components/basic/LoadingContainer";
 import { PostComponent } from "../../../components/main/PostComponent";
 
-const PAGE_SIZE = 10;
-
-export const ProfileView = ()=>{
+export const PostView = ()=> {
     const params = useParams();
     const targetUsername = params.name as string;
-    const [user, setUser] = useState<PartialUser>();
+    const targetPost = params.id as string;
+
+    const [post, setPost] = useState<Post>();
+    const [author, setAuthor] = useState<PartialUser>();
     const [currentProfile, setCurrentProfile] = useState("");
-    const [posts, setPosts] = useState<Post[]>([]);
     const navigate = useNavigate();
-    
+
     useEffect(()=>{
-        const fetchUser = async()=> {
+        const fetchPost = async()=> {
             if(currentProfile !== targetUsername)
                 setCurrentProfile(targetUsername);
             else
@@ -37,7 +35,7 @@ export const ProfileView = ()=>{
                 }
 
                 // Get posts
-                const postResp = await sendAPIRequest<Post[]>(`/post/${userResp.data?.id}/0`, "GET");
+                const postResp = await sendAPIRequest<Post>(`/post/view/${targetPost}`, "GET");
 
                 if((postResp.data == null) || (!postResp.success)) {
                     // Say an error occured
@@ -46,25 +44,21 @@ export const ProfileView = ()=>{
                     return;
                 }
 
-                setPosts(postResp.data);
-
-                // Do this last since this changes the visual ui
-                setUser(userResp.data);
+                setPost(postResp.data);
+                setAuthor(userResp.data);
             } catch(e) {
                 // Inform user of error
                 console.error(e);
             }
         }
 
-        fetchUser();
+        fetchPost();
     });
-    
-    return <div className="view profile">
-        <TitleHeader title={targetUsername} backAction={()=>navigate('/feed')}/>
-        { (user == null) ? <LoadingContainer/> : <>
-            <ProfileBanner user={user}/>
-            <BiographyBox text={user.biography ?? "(none provided)"}/>
-            { posts.map(x => <PostComponent post={x} user={user} key={x.id} static={false}/>) }
+
+    return <div className="view post">
+        <TitleHeader title="Post" backAction={()=>navigate(`/user/${targetUsername}`)}/>
+        { (author == null) ? <LoadingContainer/> : <>
+            <PostComponent static={true} post={post as Post} user={author}/>
         </> }
-    </div>
+    </div>;
 }

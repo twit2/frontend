@@ -5,6 +5,13 @@
     display: flex;
     border-bottom: 1px solid #292929;
 
+    &:not(.static) {
+        &:hover {
+            background-color: $colorT5;
+            cursor: pointer;
+        }
+    }
+
     .left {
         .avatar {
             height: 42px;

@@ -7,6 +7,7 @@ import "./App.scss";
 import { MainPage } from './ui/main/MainPage';
 import { FeedView } from './ui/main/sublayouts/FeedView';
 import { ProfileView } from './ui/main/sublayouts/ProfileView';
+import { PostView } from './ui/main/sublayouts/PostView';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -22,6 +23,7 @@ export default function App() {
           <Route element={<MainPage />}>
               <Route path="/feed" element={<FeedView/>} />
               <Route path="/user/:name" element={<ProfileView/>} />
+              <Route path="/user/:name/post/:id" element={<PostView/>} />
           </Route>
         </Routes>
       </BrowserRouter>
