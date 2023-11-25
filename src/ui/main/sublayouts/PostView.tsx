@@ -6,6 +6,7 @@ import { PartialUser } from "../../../api/user/PartialUser";
 import { sendAPIRequest } from "../../../api/APIRequester";
 import { LoadingContainer } from "../../../components/basic/LoadingContainer";
 import { PostComponent } from "../../../components/main/PostComponent";
+import { AppContext } from "../../../app/AppContext";
 
 export const PostView = ()=> {
     const params = useParams();
@@ -29,8 +30,7 @@ export const PostView = ()=> {
                 const userResp = await sendAPIRequest<PartialUser>(`/user/${targetUsername}`, "GET");
 
                 if((userResp.data == null) || (!userResp.success)) {
-                    // Say an error occured
-                    // alert("Failed to fetch user data - this is a bug!");
+                    AppContext.ui.alert({ title: "Error", content: "Failed to refresh user profile!" })
                     return;
                 }
 
@@ -38,9 +38,7 @@ export const PostView = ()=> {
                 const postResp = await sendAPIRequest<Post>(`/post/view/${targetPost}`, "GET");
 
                 if((postResp.data == null) || (!postResp.success)) {
-                    // Say an error occured
-                    // TODO put visual error instead
-                    // alert("No posts to retrieve.");
+                    AppContext.ui.alert({ title: "Error", content: "Unable to retrieve posts." })
                     return;
                 }
 

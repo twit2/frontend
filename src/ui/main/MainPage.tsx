@@ -10,10 +10,14 @@ import { Outlet } from "react-router-dom";
 import { DialogContainer } from "../../components/wm/DialogContainer";
 import { NewPostDialog } from "./dialogs/NewPostDialog";
 import { Dialog } from "../../components/wm/Dialog";
+import { AppContext } from "../../app/AppContext";
+import { DialogArgs } from "../wm/dlg/DialogArgs";
+import { BasicDialog } from "../../components/wm/BasicDialog";
 
 enum DialogId {
     None = 0,
-    NewPost = 1
+    NewPost = 1,
+    Custom = 100
 }
 
 /**
@@ -24,6 +28,13 @@ export const MainPage = ()=> {
     const [fetchBusy, setFetchBusy] = useState(false);
     const [user, setUser] = useState<PartialUser>();
     const [dialog, setDialog] = useState(DialogId.None);
+    const [dialogData, setDialogData] = useState<any>({});
+
+    // Hook dialog function in app context
+    AppContext.ui.alert = (args)=>{
+        setDialogData(args);
+        setDialog(DialogId.Custom);
+    }
 
     // Fetch user profile
     useEffect(()=>{
@@ -37,11 +48,12 @@ export const MainPage = ()=> {
                 const userResp = await sendAPIRequest<PartialUser>("/user/@me", "GET");
 
                 if((userResp.data == null) || (!userResp.success)) {
-                    // Say an error occured
-                    // alert("Failed to fetch user data - this is a bug!");
+                    AppContext.ui.alert({ title: "Error", content: "Failed to refresh user profile!" })
+                    return;
                 }
-
+                
                 setUser(userResp.data);
+                AppContext.currentUser = userResp.data as PartialUser;
             } catch(e) {
                 // Inform user of error
                 console.error(e);
@@ -55,6 +67,20 @@ export const MainPage = ()=> {
         <DialogContainer>
             { (()=>{
                 switch(dialog) {
+                    case DialogId.Custom: {
+                        let args = {
+                            ...{
+                                title: "Alert",
+                                content: "",
+                                buttons: [ { id: "ok", onClick: "$close", label: "Ok" } ]
+                            },
+                            ...dialogData
+                        } as DialogArgs;
+                        
+                        return <Dialog title={args.title} onclose={()=>setDialog(DialogId.None)}>
+                            <BasicDialog args={args} onclose={()=>setDialog(DialogId.None)}/>
+                        </Dialog>;
+                    }
                     case DialogId.NewPost:
                         return <Dialog title="New Post" onclose={()=>setDialog(DialogId.None)}>
                             <NewPostDialog/>
