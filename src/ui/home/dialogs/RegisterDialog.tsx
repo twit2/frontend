@@ -41,7 +41,7 @@ export const RegisterDialog = ()=>{
     }
 
     return <div className="register-dlg">
-        <Form onsubmit={()=>{}}>
+        <Form>
             { busy ? <LoadingContainer/> : <>
                 <p className="explanation">
                     To create an account, enter your details below.

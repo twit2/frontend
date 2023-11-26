@@ -42,20 +42,20 @@ interface InputFieldProps {
 export const FormInputField = (props: InputFieldProps)=><div className="ui-form-field">
     <div className="label">{ props.label }</div>
     <div className="input">
-        { props.extended ? <>
+        { props.extended ?
             <textarea className="icomponent" placeholder={props.placeholder}
                 onChange={(e)=>props.onchange?.call(this, e.currentTarget.value)}
                 onKeyUp={(e)=>{
                     if(e.key === "Enter")
                         props.onsubmit?.call(this, e.currentTarget.value)
                 }} value={props.value}></textarea>
-        </> : <>
+        :
             <input className="icomponent" type={props.type} placeholder={props.placeholder}
                 onChange={(e)=>props.onchange?.call(this, e.currentTarget.value)}
                 onKeyUp={(e)=>{
                     if(e.key === "Enter")
                         props.onsubmit?.call(this, e.currentTarget.value)
                 }} value={props.value}/>
-        </> }
+        }
     </div>
 </div>

@@ -5,16 +5,14 @@ export const BasicDialog = (props: { args: DialogArgs, onclose: ()=>void })=><di
     <div className="subcontent">
         { props.args.content }
     </div>
-    { (props.args.buttons ?? []).length > 0 ? <>
+    { (props.args.buttons ?? []).length > 0 ?
         <div className="buttons">
             { props.args.buttons?.map(x =><button key={x.id} onClick={()=>{
-                if((x.onClick as any) === "$close") {
+                if((x.onClick as any) === "$close")
                     props.onclose();
-                    return;
-                }
                 else
                     x.onClick(x);
             }}>{x.label}</button>) }
         </div>
-    </> : '' }
+    : '' }
 </div>

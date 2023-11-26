@@ -17,10 +17,14 @@ export const LoginDialog = ()=>{
      * Submits the form.
      */
     async function submit() {
-        if(username.trim() === "")
-            return void setError("No username specified.");
-        else if(password.trim() === "")
-            return void setError("No password specified.");
+        if(username.trim() === "") {
+            setError("No username specified.");
+            return;
+        }
+        else if(password.trim() === "") {
+            setError("No password specified.");
+            return;
+        }
 
         setBusy(true);
 
@@ -38,7 +42,7 @@ export const LoginDialog = ()=>{
     }
 
     return <div className="login-dlg">
-        <Form onsubmit={()=>{}}>
+        <Form>
             { busy ? <LoadingContainer/> : <>
                 <p className="explanation">
                     Enter your account details below to log in.

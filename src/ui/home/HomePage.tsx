@@ -44,7 +44,8 @@ export const HomePage = ()=>{
                     <button onClick={()=>setDialog(DlgState.Register)}>Create Account</button>
                 </div>
                 <div className="links">
-                    <a href="/tos">Terms of Service</a> | 
+                    <a href="/tos">Terms of Service</a>
+                    <span> | </span>
                     <a href="/privacy">Privacy Policy</a>
                 </div>
             </div>

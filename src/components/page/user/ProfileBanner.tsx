@@ -20,16 +20,15 @@ export const ProfileBanner = (props: { user: PartialUser }) => {
                 { props.user.displayName !== '' ? <>
                     <div className="name">{props.user.displayName}</div>
                     <div className="username">@{props.user.username}</div>
-                </> : <>
-                    <div className="name">@{props.user.username}</div>
-                </> }
+                </> : <div className="name">@{props.user.username}</div> }
                 <div className="extra-box">
                     <div className="info">
                         <div>
                             <span className="date">Date Joined: {new Date(props.user.dateJoined).toLocaleDateString()}</span>
                         </div>
                         <div>
-                            <span className="followed">{props.user.followingCount} following</span> |
+                            <span className="followed">{props.user.followingCount} following</span>
+                            <span> | </span>
                             <span className="follow">{props.user.followCount} followers</span>
                         </div>
                     </div>

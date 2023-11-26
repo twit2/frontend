@@ -1,7 +1,6 @@
 import "./Form.scss";
 
 interface FormProps {
-    onsubmit: ()=>void;
     children: any;
 }
 

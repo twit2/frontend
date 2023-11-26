@@ -42,7 +42,7 @@ export const ProfileEditDialog = (props: { user: PartialUser })=>{
 
     return <div className="dlg-profile-edit" style={{ minWidth: 350 }}>
         { busy ? <LoadingContainer/> : <>
-            <Form onsubmit={()=>{}}>
+            <Form>
                 <FormInputField label="Display Name" type="text" value={displayName} onchange={(t)=>setDisplayName(t)}/>
                 <FormInputField label="Biography" type="text" value={biography} extended={true} onchange={(b)=>setBiography(b)}/>
                 <div className="counter" style={{ color: (biography.length > CHRS_MAX) ? 'red' : undefined, textAlign: 'right' }}>{biography.length}/{CHRS_MAX}</div>

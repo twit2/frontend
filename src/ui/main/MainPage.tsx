@@ -58,7 +58,7 @@ export const MainPage = ()=> {
                 }
                 
                 setUser(userResp.data);
-                AppContext.currentUser = userResp.data as PartialUser;
+                AppContext.currentUser = userResp.data;
             } catch(e) {
                 // Inform user of error
                 console.error(e);
