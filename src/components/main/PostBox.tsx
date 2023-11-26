@@ -23,7 +23,7 @@ export const PostBox = (props: { targetUser: PartialUser })=>{
         const postResp = await sendAPIRequest<PaginatedAPIData<Post>>(`/post/${props.targetUser.id}/${page}`, "GET");
 
         if((postResp.data == null) || (!postResp.success)) {
-            AppContext.ui.alert({ title: "Error", content: "Unable to retrieve posts." })
+            AppContext.ui.createDlg({ title: "Error", content: "Unable to retrieve posts." })
             return;
         }
 

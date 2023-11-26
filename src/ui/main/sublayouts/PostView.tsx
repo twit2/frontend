@@ -30,7 +30,7 @@ export const PostView = ()=> {
                 const userResp = await sendAPIRequest<PartialUser>(`/user/${targetUsername}`, "GET");
 
                 if((userResp.data == null) || (!userResp.success)) {
-                    AppContext.ui.alert({ title: "Error", content: "Failed to refresh user profile!" })
+                    AppContext.ui.createDlg({ title: "Error", content: "Failed to refresh user profile!" })
                     return;
                 }
 
@@ -38,7 +38,7 @@ export const PostView = ()=> {
                 const postResp = await sendAPIRequest<Post>(`/post/view/${targetPost}`, "GET");
 
                 if((postResp.data == null) || (!postResp.success)) {
-                    AppContext.ui.alert({ title: "Error", content: "Unable to retrieve posts." })
+                    AppContext.ui.createDlg({ title: "Error", content: "Unable to retrieve posts." })
                     return;
                 }
 

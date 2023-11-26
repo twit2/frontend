@@ -31,13 +31,28 @@
                 font-weight: bold;
             }
 
+            >.username {
+                color: gray;
+                margin-top: 0.25em;
+            }
+
             >.extra-box {
                 margin-top: 2em;
                 line-height: 1.5;
                 color: gray;
+                display: flex;
 
                 .date {
                     margin-bottom: 1em;
+                }
+
+                >.info {
+                    flex: 1;
+                }
+
+                >button {
+                    padding: 0.5em 1.5em;
+                    margin-top: auto;
                 }
             }
         }

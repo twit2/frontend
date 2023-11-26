@@ -5,6 +5,7 @@ interface DialogProps {
     title: string;
     onclose: MouseEventHandler<HTMLDivElement>;
     children?: any;
+    hideClose?: boolean;
 }
 
 export const Dialog = (props: DialogProps)=>{
@@ -13,7 +14,7 @@ export const Dialog = (props: DialogProps)=>{
             <div className="top">
                 <div className="title">{props.title}</div>
                 <div className="buttons">
-                    <div className="close" onClick={props.onclose}></div>
+                    { props.hideClose ? '' : <div className="close" onClick={props.onclose}></div> }
                 </div>
             </div>
             <div className="content">

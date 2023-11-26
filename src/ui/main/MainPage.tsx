@@ -31,9 +31,14 @@ export const MainPage = ()=> {
     const [dialogData, setDialogData] = useState<any>({});
 
     // Hook dialog function in app context
-    AppContext.ui.alert = (args)=>{
+    AppContext.ui.createDlg = (args)=>{
         setDialogData(args);
         setDialog(DialogId.Custom);
+    }
+
+    AppContext.ui.closeDlg = ()=> {
+        setDialogData(null);
+        setDialog(DialogId.None);
     }
 
     // Fetch user profile
@@ -48,7 +53,7 @@ export const MainPage = ()=> {
                 const userResp = await sendAPIRequest<PartialUser>("/user/@me", "GET");
 
                 if((userResp.data == null) || (!userResp.success)) {
-                    AppContext.ui.alert({ title: "Error", content: "Failed to refresh user profile!" })
+                    AppContext.ui.createDlg({ title: "Error", content: "Failed to refresh user profile!" })
                     return;
                 }
                 
@@ -72,12 +77,13 @@ export const MainPage = ()=> {
                             ...{
                                 title: "Alert",
                                 content: "",
-                                buttons: [ { id: "ok", onClick: "$close", label: "Ok" } ]
+                                buttons: [ { id: "ok", onClick: "$close", label: "Ok" } ],
+                                canClose: true
                             },
                             ...dialogData
                         } as DialogArgs;
                         
-                        return <Dialog title={args.title} onclose={()=>setDialog(DialogId.None)}>
+                        return <Dialog title={args.title} onclose={()=>setDialog(DialogId.None)} hideClose={!args.canClose}>
                             <BasicDialog args={args} onclose={()=>setDialog(DialogId.None)}/>
                         </Dialog>;
                     }

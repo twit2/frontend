@@ -3,9 +3,18 @@ import { DialogArgs } from "../ui/wm/dlg/DialogArgs";
 
 // Represents the current app context
 interface IAppCtx {
-    currentUser: PartialUser,
+    currentUser?: PartialUser,
     ui: {
-        alert: (args: DialogArgs)=>void
+        /**
+         * Shows a dialog.
+         * @param args The arguments to pass.
+         */
+        createDlg: (args: DialogArgs)=>void,
+
+        /**
+         * Closes the active dialog.
+         */
+        closeDlg: ()=>void
     }
 }
 

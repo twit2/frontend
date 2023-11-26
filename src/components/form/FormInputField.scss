@@ -14,7 +14,7 @@
             margin-bottom: 0;
         }
 
-        input {
+        .icomponent {
             &:focus {
                 border-color: $colorAccent;
             }
@@ -28,7 +28,10 @@
             border: 2px solid $colorTertiary;
             padding: 8px;
             border-radius: 3px;
-            font-size: 12px;
+        }
+
+        textarea.icomponent {
+            line-height: 1.6;
         }
     }
 }

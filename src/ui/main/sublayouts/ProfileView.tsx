@@ -27,7 +27,7 @@ export const ProfileView = ()=>{
             const userResp = await sendAPIRequest<PartialUser>(`/user/${targetUsername}`, "GET");
 
             if((userResp.data == null) || (!userResp.success)) {
-                AppContext.ui.alert({ title: "Error", content: "Failed to refresh user profile!" })
+                AppContext.ui.createDlg({ title: "Error", content: "Failed to refresh user profile!" })
                 return;
             }
 
@@ -47,7 +47,7 @@ export const ProfileView = ()=>{
         <TitleHeader title={targetUsername} backAction={()=>navigate('/feed')}/>
         { (user == null) ? <LoadingContainer/> : <>
             <ProfileBanner user={user}/>
-            <BiographyBox text={user.biography ?? "(none provided)"}/>
+            <BiographyBox text={(user.biography === '') ? "(none provided)" : (user.biography as string)}/>
             <PostBox targetUser={user}/>
         </> }
     </div>

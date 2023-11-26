@@ -15,8 +15,8 @@ export const PostComponent = (props: { post: Post, user: PartialUser, static: bo
         </div>
         <div className="right">
             <div className="user-info">
-                <a href={`/user/@${props.user.username}`}>{props.user.displayName ?? props.user.username}</a> 
-                <span className="uname"> @ {props.user.username}</span>
+                <a href={`/user/@${props.user.username}`}>{(props.user.displayName !== '') ? props.user.displayName : props.user.username}</a> 
+                <span className="uname"> @{props.user.username}</span>
             </div>
             <div className="text-content">
                 { props.post.textContent }
