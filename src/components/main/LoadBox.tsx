@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./LoadBox.scss";
 import { LoadingContainer } from "../basic/LoadingContainer";
 

@@ -15,7 +15,7 @@ export const NewPostDialog = (props: {}) => {
      * Submits the post.
      */
     async function submitPost() {
-        if(postText.trim() == "") {
+        if(postText.trim() === "") {
             setError("Post cannot be empty.");
             return;
         }

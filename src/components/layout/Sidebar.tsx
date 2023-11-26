@@ -1,4 +1,3 @@
-import { MouseEventHandler } from "react";
 import { ProfileBox } from "./ProfileBox";
 import "./Sidebar.scss";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +26,7 @@ export const Sidebar = (props: SidebarProps)=> {
     const curPath = window.location.pathname;
 
     links.forEach((v, i) => {
-        if(v.link == curPath)
+        if(v.link === curPath)
             links[i].selected = true;
     });
 
