@@ -8,7 +8,7 @@ import { PartialUser } from "../../api/user/PartialUser";
 import { sendAPIRequest } from "../../api/APIRequester";
 import { Outlet } from "react-router-dom";
 import { DialogContainer } from "../../components/wm/DialogContainer";
-import { NewPostDialog } from "./dialogs/NewPostDialog";
+import { NewPostDialog, PostDialogMode } from "./dialogs/NewPostDialog";
 import { Dialog } from "../../components/wm/Dialog";
 import { AppContext } from "../../app/AppContext";
 import { DialogArgs } from "../wm/dlg/DialogArgs";
@@ -89,7 +89,7 @@ export const MainPage = ()=> {
                     }
                     case DialogId.NewPost:
                         return <Dialog title="New Post" onclose={()=>setDialog(DialogId.None)}>
-                            <NewPostDialog/>
+                            <NewPostDialog mode={PostDialogMode.Create}/>
                         </Dialog>;
                 }
                 return '';
