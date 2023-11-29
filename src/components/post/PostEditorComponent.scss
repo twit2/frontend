@@ -1,15 +1,19 @@
 @import "../../style/colors.scss";
 
+.ui-post-text {
+    background-color: transparent;
+    color: $colorSecondary;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
 .ui-post-editor {
-    .post-text {
+    .ui-post-text {
         background-color: $colorPrimary;
-        color: $colorSecondary;
-        border: none;
-        outline: none;
-        resize: none;
-        font-size: 18px;
         width: 380px;
         height: 130px;
-        line-height: 1.4;
     }
 }

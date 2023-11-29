@@ -7,6 +7,8 @@ import { sendAPIRequest } from "../../../api/APIRequester";
 import { LoadingContainer } from "../../../components/basic/LoadingContainer";
 import { PostComponent } from "../../../components/main/PostComponent";
 import { AppContext } from "../../../app/AppContext";
+import { ReplyBox } from "../../../components/post/ReplyBox";
+import { PostBox, PostBoxMode } from "../../../components/main/PostBox";
 
 export const PostView = ()=> {
     const params = useParams();
@@ -56,7 +58,9 @@ export const PostView = ()=> {
     return <div className="view post">
         <TitleHeader title="Post" backAction={()=>navigate(`/user/${targetUsername}`)}/>
         { (author == null) ? <LoadingContainer/> : <>
-            <PostComponent static={true} post={post as Post} user={author}/>
+            <PostComponent static={true} post={post as Post}/>
+            <ReplyBox post={post as Post} user={AppContext.currentUser as PartialUser}/>
+            <PostBox target={(post as Post).id} mode={PostBoxMode.Replies}/>
         </> }
     </div>;
 }

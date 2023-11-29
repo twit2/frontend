@@ -7,7 +7,7 @@ import { ProfileBanner } from "../../../components/page/user/ProfileBanner";
 import { sendAPIRequest } from "../../../api/APIRequester";
 import { BiographyBox } from "../../../components/page/user/BiographyBox";
 import { AppContext } from "../../../app/AppContext";
-import { PostBox } from "../../../components/main/PostBox";
+import { PostBox, PostBoxMode } from "../../../components/main/PostBox";
 
 export const ProfileView = ()=>{
     const params = useParams();
@@ -48,7 +48,7 @@ export const ProfileView = ()=>{
         { (user == null) ? <LoadingContainer/> : <>
             <ProfileBanner user={user}/>
             <BiographyBox text={(user.biography === '') ? "(none provided)" : (user.biography as string)}/>
-            <PostBox targetUser={user}/>
+            <PostBox target={user.id} mode={PostBoxMode.ProfilePosts}/>
         </> }
     </div>
 }

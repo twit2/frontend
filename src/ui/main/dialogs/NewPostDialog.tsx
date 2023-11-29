@@ -27,7 +27,7 @@ export const NewPostDialog = (props: { mode: PostDialogMode, prev?: Post }) => {
             return;
         }
 
-        let apiReq: APIResponse<unknown>;
+        let apiReq: APIResponse<Post>;
 
         switch(props.mode) {
             default:

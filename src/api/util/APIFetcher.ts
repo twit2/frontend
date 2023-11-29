@@ -19,7 +19,7 @@ export class APIFetcher<T> {
     async get(id: string): Promise<T> {
         let result = this.objs.find(x => {
             const obj = x as BasicCacheable;
-            return obj.id == id;
+            return obj.id === id;
         });
 
         if(!result) {
