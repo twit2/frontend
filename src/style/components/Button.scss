@@ -21,6 +21,18 @@ button {
         }
     }
 
+    // Danger variant
+    &.danger {
+        background-color: rgb(216, 20, 20);
+        border-color: rgb(216, 20, 20);
+        color: white;
+
+        &:hover {
+            border-color: white;
+            color: black;
+        }
+    }
+
     &:hover, &.selected {
         color: $colorPrimary;
         background-color: $colorSecondary;

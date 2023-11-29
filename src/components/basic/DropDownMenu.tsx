@@ -5,7 +5,7 @@ export interface DropDownMenuItem {
     icon?: string;
     label: string;
     id: string;
-    onclick: ()=>void;
+    onclick: (args?: any)=>void;
 }
 
 export interface DropDownMenuList {

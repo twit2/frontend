@@ -5,9 +5,11 @@ import "./PostComponent.scss";
 import { DropDownButton } from "../basic/DropDownButton";
 import { DropDownMenuItem } from "../basic/DropDownMenu";
 import { AppContext } from "../../app/AppContext";
+import { PostRemoveDialog } from "../post/dialogs/PostRemoveDialog";
 
 export const PostComponent = (props: { post: Post, user: PartialUser, static: boolean })=>{
     const nav = useNavigate();
+
     const postItems: DropDownMenuItem[] = [
         { id: "permalink", icon: "link", label: "Make Link", onclick: ()=>{
             AppContext.ui.createDlg({
@@ -16,9 +18,17 @@ export const PostComponent = (props: { post: Post, user: PartialUser, static: bo
             });
         } },
         { id: "edit", icon: "edit", label: "Edit", onclick: ()=>{} },
-        { id: "delete", icon: "delete", label: "Delete", onclick: ()=>{} },
+        { id: "delete", icon: "delete", label: "Delete", onclick: (args: any)=>{
+            AppContext.ui.createDlg({
+                title: "Delete Post",
+                content: <PostRemoveDialog id={args as string}/>,
+                canClose: false,
+                buttons: []
+            })
+        } },
     ];
 
+    // Render component
     return <div className={"ui-post" + (props.static ? ' static' : '')} onClick={()=>{
         if(!props.static)
             nav(`/user/@${props.user.username}/post/${props.post.id}`)
@@ -30,7 +40,7 @@ export const PostComponent = (props: { post: Post, user: PartialUser, static: bo
             <div className="user-info">
                 <a href={`/user/@${props.user.username}`}>{(props.user.displayName !== '') ? props.user.displayName : props.user.username}</a> 
                 <span className="uname"> @{props.user.username}</span>
-                <DropDownButton items={postItems}/>
+                <DropDownButton items={postItems} args={props.post.id}/>
             </div>
             <div className="text-content">
                 { props.post.textContent }

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./DropDownButton.scss";
 import { DropDownMenu, DropDownMenuItem } from "./DropDownMenu";
 
-export const DropDownButton = (props: { items: DropDownMenuItem[] })=>{
+export const DropDownButton = (props: { items: DropDownMenuItem[], args?: any })=>{
     let [menuShown, setMenuShown] = useState(false);
     let [coords, setCoords] = useState({x : 0, y: 0 });
 
@@ -39,10 +39,10 @@ export const DropDownButton = (props: { items: DropDownMenuItem[] })=>{
                 let oldCall = x.onclick;
 
                 x.onclick = ()=>{
-                    oldCall();
+                    oldCall(props.args);
                     setMenuShown(false);
                 };
-                
+
                 return x;
             }),
             x: coords.x,
