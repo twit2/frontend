@@ -1,0 +1,5 @@
+@mixin iconslib {
+    &.link { background-image: url(../assets/icons/svg/link.svg); }
+    &.edit { background-image: url(../assets/icons/svg/actions/edit.svg); }
+    &.delete { background-image: url(../assets/icons/svg/actions/delete.svg); }
+}

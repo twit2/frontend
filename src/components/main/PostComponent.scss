@@ -9,6 +9,24 @@
         &:hover {
             background-color: $colorT5;
             cursor: pointer;
+
+            .dropdown-btn {
+                position: relative;
+                z-index: 10000;
+                visibility: visible;
+            }
+        }
+
+        .dropdown-btn {
+            visibility: hidden;
+        }
+    }
+
+    .dropdown-btn {
+        &:hover, &.active {
+            background-color: $colorT4;
+            border-radius: 100px;
+            visibility: visible !important;
         }
     }
 
@@ -32,11 +50,13 @@
 
         .user-info {
             margin-bottom: 10px;
+            display: flex;
             
             a {
                 font-weight: bold;
                 color: $colorSecondary;
                 text-decoration: none;
+                margin-right: 0.5em;
 
                 &:hover {
                     text-decoration: underline;

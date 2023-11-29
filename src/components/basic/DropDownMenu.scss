@@ -1,0 +1,43 @@
+@import "../../style/colors.scss";
+@import "../../style/icons.scss";
+
+.dropdown-menu {
+    position: fixed;
+    z-index: 100;
+    background-color: $colorPrimary;
+    border: 2px solid $colorT5;
+    border-radius: 5px;
+    user-select: none;
+    padding: 5px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 4px 0px black;
+
+    >.item {
+        cursor: pointer;
+        padding: 5px;
+        padding-right: 15px;
+        border-radius: 3px;
+
+        &:hover {
+            background-color: $colorAccent;
+        }
+
+        &:active {
+            background-color: adjust-color($color: $colorAccent, $lightness: -10%);
+        }
+
+        .icon {
+            display: inline-block;
+            vertical-align: middle;
+            height: 22px;
+            width: 22px;
+            margin-right: 5px;
+
+            @include iconslib;
+        }
+
+        .label {
+            vertical-align: middle;
+        }
+    }
+}
