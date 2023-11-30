@@ -31,3 +31,6 @@ cypress/videos/*
 
 # Api config
 APIConfiguration.ts
+
+# Ignore git strip
+/__gitstrip
