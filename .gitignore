@@ -29,8 +29,5 @@ cypress/downloads/*
 cypress/screenshots/*
 cypress/videos/*
 
-# Api config
-APIConfiguration.ts
-
 # Ignore git strip
 /__gitstrip
