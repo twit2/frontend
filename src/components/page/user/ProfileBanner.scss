@@ -1,4 +1,5 @@
 @import "../../../style/colors.scss";
+@import "../../../style/mixins/ProfilePicture.scss";
 
 .ui-pfbanner {
     width: 100%;
@@ -12,13 +13,9 @@
         display: flex;
         
         >.avatar {
-            background-image: url(../../../assets/icons/svg/frowning2.svg);
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
+            @include profile-picture(url(../../../assets/icons/svg/user/profile.svg));
             height: 128px;
             width: 128px;
-            border-radius: 100%;
         }
 
         >.information {

@@ -8,16 +8,18 @@ import { LoadBox } from "./LoadBox";
 
 export enum PostBoxMode {
     ProfilePosts,
+    LatestPosts,
     Replies
 }
 
 export const PostBox = (props: { mode: PostBoxMode, target: string })=>{
     const [posts, setPosts] = useState<Post[]>();
+    const [done, setDone] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
     const [page, setPage] = useState(0);
 
     const fetchPosts = async() => {
-        if(posts)
+        if(done)
             return;
 
         // Get posts
@@ -26,6 +28,9 @@ export const PostBox = (props: { mode: PostBoxMode, target: string })=>{
         switch(props.mode) {
             case PostBoxMode.Replies:
                 postResp = await sendAPIRequest<PaginatedAPIData<Post>>(`/post/${props.target}/replies/${page}`, "GET");
+                break;
+            case PostBoxMode.LatestPosts:
+                postResp = await sendAPIRequest<PaginatedAPIData<Post>>(`/post/latest/${page}`, "GET");
                 break;
             case PostBoxMode.ProfilePosts:
             default:
@@ -46,6 +51,8 @@ export const PostBox = (props: { mode: PostBoxMode, target: string })=>{
             ...posts ?? [],
             ...newPosts,
         ]);
+
+        setDone(true);
     }
 
     useEffect(()=>{
@@ -56,7 +63,7 @@ export const PostBox = (props: { mode: PostBoxMode, target: string })=>{
         { (posts ?? []).map(x => <PostComponent post={x} key={x.id} static={false}/>) }
         { (showLoader) ? <LoadBox loading={false} label="Load More" onclick={()=>{
             setPage(page + 1);
-            setPosts(undefined);
+            setDone(false);
             fetchPosts();
         }}/> : '' }
     </div>

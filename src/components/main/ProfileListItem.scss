@@ -1,0 +1,73 @@
+@import "../../style/colors.scss";
+
+.profile-item {
+    padding: 15px;
+    display: flex;
+    border-bottom: 1px solid #292929;
+
+    &:not(.static) {
+        &:hover {
+            background-color: $colorT5;
+            cursor: pointer;
+        }
+    }
+
+    .left {
+        .avatar {
+            cursor: pointer;
+            height: 42px;
+            width: 42px;
+            background-image: url(../../assets/icons/svg/user/profile.svg);
+            background-color: black;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 100%;
+        } 
+
+        margin-right: 15px;
+    }
+
+    .right {
+        flex: 1;
+
+        .user-info {
+            margin-bottom: 10px;
+            display: flex;
+            
+            >.combo {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+
+                a {
+                    font-weight: bold;
+                    color: $colorSecondary;
+                    text-decoration: none;
+                    margin-right: 0.5em;
+    
+                    &:hover {
+                        text-decoration: underline;
+                    }
+    
+                    &:visited {
+                        color: $colorSecondary;
+                    }
+                }
+    
+                .uname {
+                    color: gray;
+                }
+            }
+
+            button {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+        }
+
+        .text-content {
+            line-height: 1.4;
+        }
+    }
+}

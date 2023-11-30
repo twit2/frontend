@@ -1,4 +1,5 @@
 @import "../../style/colors.scss"; 
+@import "../../style/mixins/ProfilePicture.scss";
 
 .ui-reply-box {
     border-bottom: 1px solid #292929;
@@ -12,11 +13,7 @@
                 cursor: pointer;
                 height: 42px;
                 width: 42px;
-                background-image: url(../../assets/icons/svg/frowning2.svg);
-                background-size: contain;
-                background-position: center;
-                background-repeat: no-repeat;
-                border-radius: 100%;
+                @include profile-picture(url(../../assets/icons/svg/user/profile.svg));
             } 
     
             margin-right: 15px;
