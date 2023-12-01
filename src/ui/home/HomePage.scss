@@ -2,7 +2,8 @@
 
 .page.home {
     display: flex;
-    background: url(./HomeBackground.jpg);
+    background-image: url(./HomeBackground.jpg);
+    background-size: cover;
 }
 
 // right panel
@@ -53,5 +54,21 @@
         &:visited {
             color: $colorSecondary;
         }
+    }
+
+    .logo {
+        background-image: url(../../assets/misc/logo.png);
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 128px;
+        width: 100%;
+    }
+}
+
+// <= 768px screens (mobile mode)
+@media screen and (max-width: 768px) {
+    .page.home>.right {
+        width: 100%;
     }
 }

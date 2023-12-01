@@ -36,6 +36,7 @@ export const HomePage = ()=>{
         </DialogContainer>
         <div className="page home">
             <div className="right form">
+                <div className="logo"></div>
                 <div className="title">Twit2</div>
                 <div className="subtitle">The next generation of social media</div>
                 <div className="separator"></div>
