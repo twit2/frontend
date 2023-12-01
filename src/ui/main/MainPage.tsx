@@ -6,7 +6,7 @@ import { Sidebar } from "../../components/layout/Sidebar";
 import "./MainPage.scss";
 import { PartialUser } from "../../api/user/PartialUser";
 import { sendAPIRequest } from "../../api/APIRequester";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { DialogContainer } from "../../components/wm/DialogContainer";
 import { NewPostDialog, PostDialogMode } from "./dialogs/NewPostDialog";
 import { Dialog } from "../../components/wm/Dialog";
@@ -25,6 +25,7 @@ enum DialogId {
  * @returns The main page.
  */
 export const MainPage = ()=> {
+    const navigate = useNavigate();
     const [fetchBusy, setFetchBusy] = useState(false);
     const [user, setUser] = useState<PartialUser>();
     const [dialog, setDialog] = useState(DialogId.None);
@@ -53,6 +54,12 @@ export const MainPage = ()=> {
                 const userResp = await sendAPIRequest<PartialUser>("/user/@me", "GET");
 
                 if((userResp.data == null) || (!userResp.success)) {
+                    // Redirect to login page if 403
+                    if(userResp.code === 1003) {
+                        navigate('/');
+                        return;
+                    }
+
                     AppContext.ui.createDlg({ title: "Error", content: "Failed to refresh user profile!" })
                     return;
                 }

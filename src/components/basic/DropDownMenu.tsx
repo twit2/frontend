@@ -16,14 +16,14 @@ export interface DropDownMenuList {
 
 export const DropDownMenu = (props: { menu: DropDownMenuList })=>{
     const ref = useRef<HTMLDivElement>(null);
-    const [xOff, setXoff] = useState(0);
+    const [xOff, setXOff] = useState(0);
 
     useEffect(()=>{
         if(!ref.current)
             return;
 
         const rect = ref.current.getBoundingClientRect();
-        setXoff(rect.width);
+        setXOff(rect.width);
     }, []);
     
     return <div style={{

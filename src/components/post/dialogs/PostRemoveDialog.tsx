@@ -15,7 +15,6 @@ export const PostRemoveDialog = (props: { id: string })=>{
 
         if(!resp.success) {
             setError(resp.message);
-            return;
         } else {
             // Remove post from feed
             if(window.location.pathname.endsWith(props.id))
