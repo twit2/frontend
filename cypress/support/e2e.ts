@@ -15,11 +15,10 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands';
-import { APIConfiguration } from '../../src/api/APIConfiguration';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
 Cypress.env("test-username", `cyuser_${Math.floor(Math.random() * 100000)}`);
 Cypress.env("test-password", 'test');
-Cypress.env("gateway-url", APIConfiguration.apiGwUrl);
+Cypress.env("gateway-url", `http://api.tw2-app.local:8080/api/v1`);
