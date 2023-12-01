@@ -50,7 +50,7 @@ export const ProfileList = (props: { mode: ProfileListMode, target: string })=>{
         }
 
         getUsers();
-    }, [done]);
+    }, [done, page, props.mode, users]);
 
     return <div className="ui-profile-list">
         { users?.map(x => <ProfileListItem key={x.id} target={x}/>) }

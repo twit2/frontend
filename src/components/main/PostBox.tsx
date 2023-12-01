@@ -5,6 +5,7 @@ import { PaginatedAPIData } from "../../api/PaginatedAPIData";
 import { AppContext } from "../../app/AppContext";
 import { PostComponent } from "./PostComponent";
 import { LoadBox } from "./LoadBox";
+import { useNavigate } from "react-router-dom";
 
 export enum PostBoxMode {
     ProfilePosts,
@@ -13,15 +14,13 @@ export enum PostBoxMode {
 }
 
 export const PostBox = (props: { mode: PostBoxMode, target: string })=>{
+    const nav = useNavigate();
     const [posts, setPosts] = useState<Post[]>();
-    const [done, setDone] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
     const [page, setPage] = useState(0);
+    const [pageHistory, setPageHistory] = useState<number[]>([]);
 
     const fetchPosts = async() => {
-        if(done)
-            return;
-
         // Get posts
         let postResp;
 
@@ -40,6 +39,7 @@ export const PostBox = (props: { mode: PostBoxMode, target: string })=>{
 
         if((postResp.data == null) || (!postResp.success)) {
             AppContext.ui.createDlg({ title: "Error", content: "Unable to retrieve posts." })
+            setPosts([]);
             return;
         }
 
@@ -47,24 +47,43 @@ export const PostBox = (props: { mode: PostBoxMode, target: string })=>{
 
         setShowLoader(newPosts.length >= postResp.data.pageSize);
 
-        setPosts([
-            ...posts ?? [],
-            ...newPosts,
-        ]);
+        if(!pageHistory.includes(page)) {
+            setPosts([
+                ...posts ?? [],
+                ...newPosts,
+            ]);
 
-        setDone(true);
+            setPageHistory([...pageHistory, ...[page]]);
+        }
+        // TODO fix
+        
+        return ()=> {
+            setPosts([]);
+            setPageHistory([]);
+            setPage(0);
+        }
     }
 
     useEffect(()=>{
+        if(page > 0) // Initial call already fetches posts
+            fetchPosts();
+        // eslint-disable-next-line
+    }, [page]);
+
+    useEffect(()=>{
+        setPageHistory([]);
+        setPage(0);
+        setPosts([]);
         fetchPosts();
-    });
+        // eslint-disable-next-line
+    }, [props.target]);
 
     return <div className="post-box">
-        { (posts ?? []).map(x => <PostComponent post={x} key={x.id} static={false}/>) }
+        { (posts ?? []).map(x => <PostComponent post={x} key={x.id} static={false} onclick={(user)=>{
+            nav(`/user/@${user?.username}/post/${x.id}`);
+        }}/>) }
         { (showLoader) ? <LoadBox loading={false} label="Load More" onclick={()=>{
             setPage(page + 1);
-            setDone(false);
-            fetchPosts();
         }}/> : '' }
     </div>
 }

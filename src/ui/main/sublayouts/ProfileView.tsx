@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { TitleHeader } from "../../../components/layout/TitleHeader"
 import { useEffect, useState } from "react";
 import { PartialUser } from "../../../api/user/PartialUser";
@@ -14,7 +14,6 @@ export const ProfileView = ()=>{
     const targetUsername = params.name as string;
     const [user, setUser] = useState<PartialUser>();
     const [currentProfile, setCurrentProfile] = useState("");
-    const navigate = useNavigate();
     
     const fetchUser = async()=> {
         if(currentProfile !== targetUsername)
@@ -44,7 +43,7 @@ export const ProfileView = ()=>{
     });
     
     return <div className="view profile">
-        <TitleHeader title={targetUsername} backAction={()=>navigate('/feed')}/>
+        <TitleHeader title={targetUsername} backAction={true}/>
         { (user == null) ? <LoadingContainer/> : <>
             <ProfileBanner user={user}/>
             <BiographyBox text={(user.biography === '') ? "(none provided)" : (user.biography as string)}/>

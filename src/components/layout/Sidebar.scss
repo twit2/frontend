@@ -1,4 +1,5 @@
 @import "../../style/mixins/ProfilePicture.scss";
+@import "../../style/colors.scss";
 
 .sidebar {
     width: 100%;
@@ -44,4 +45,22 @@
             min-width: 200px;
         }
     }
+}
+
+.sidebar-mobile {
+    height: 50px;
+    background-color: $colorTertiary;
+
+    .title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        flex: 1;
+        text-align: center;
+        margin-right: 50px; // account for hamburger menu displacement
+    }
+
+    border-bottom: 1px solid #292929;
+    display: flex;
 }

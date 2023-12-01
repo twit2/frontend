@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import "./TitleHeader.scss";
 
 /**
@@ -12,10 +13,16 @@ interface TitleHeaderProps {
     /**
      * Sets a back action.
      */
-    backAction?: ()=>void;
+    backAction?: boolean;
 }
 
-export const TitleHeader = (props: TitleHeaderProps)=><div className="hdr-title">
-    { (props.backAction != null) ? <div className="back" onClick={()=>props.backAction?.call(this)}></div> : '' }
-    <span className="text">{ props.title }</span>
-</div>
+export const TitleHeader = (props: TitleHeaderProps)=>{
+    const nav = useNavigate();
+
+    return <div className="hdr-title">
+        { (props.backAction != null) ? <div className="back" onClick={()=>{
+            nav(-1);
+        }}></div> : '' }
+        <span className="text">{ props.title }</span>
+    </div>;
+}

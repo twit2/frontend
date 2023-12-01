@@ -10,21 +10,18 @@ import { NewPostDialog, PostDialogMode } from "../../ui/main/dialogs/NewPostDial
 import { useEffect, useState } from "react";
 import { FetchStores } from "../../app/FetchStores";
 
-export const PostComponent = (props: { post: Post, static: boolean })=>{
+export const PostComponent = (props: { post: Post, static: boolean, onclick?: (user?: PartialUser)=>void })=>{
     const nav = useNavigate();
     let [user, setUser] = useState<PartialUser>();
     let dropdownItems: DropDownMenuItem[] = [];
 
     useEffect(()=> {
         async function fetchUser() {
-            if(user !== undefined)
-                return;
-
             setUser(await FetchStores.user.get(props.post.authorId));
         }
 
         fetchUser();
-    });
+    }, [user, props.post.authorId]);
 
     if(user) {
         dropdownItems = [
@@ -59,16 +56,16 @@ export const PostComponent = (props: { post: Post, static: boolean })=>{
 
     // Render component
     return <div className={"ui-post" + (props.static ? ' static' : '')} onClick={()=>{
-        if(!props.static) {
-            window.location.href = (`/user/@${user?.username}/post/${props.post.id}`);
-        }
+        if((!props.static) && (props.onclick != null))
+            props.onclick(user);
+
     }}>
         <div className="left">
             <div className="avatar" onClick={()=>nav(`/user/@${user?.username}`)} style={{ /* backgroundImage: `${props.user.avatarUrl}` */ }}></div>
         </div>
         <div className="right">
             <div className="user-info">
-                <a href={`/user/@${user?.username}`}>{(user?.displayName !== '') ? user?.displayName : user?.username}</a> 
+                <span className="dname" onClick={()=>nav(`/user/@${user?.username}`)}>{(user?.displayName !== '') ? user?.displayName : user?.username}</span> 
                 <span className="uname"> @{user?.username}</span>
                 <DropDownButton items={dropdownItems} args={props.post}/>
             </div>

@@ -12,7 +12,7 @@ export const ProfileListItem = (props: { target: PartialUser })=>{
         <div className="right">
             <div className="user-info">
                 <div className="combo">
-                    <a href={`/user/@${props.target?.username}`}>{(props.target?.displayName !== '') ? props.target?.displayName : props.target?.username}</a> 
+                    <span className="dname" onClick={()=>nav(`/user/@${props.target?.username}`)}>{(props.target?.displayName !== '') ? props.target?.displayName : props.target?.username}</span> 
                     <span className="uname"> @{props.target?.username}</span>
                 </div>
                 <button>Follow</button>

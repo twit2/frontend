@@ -1,0 +1,36 @@
+@import "../../../style/colors.scss";
+
+.ui-hamburger-menu {
+    height: 50px;
+    width: 50px;
+    background-image: url(../../../assets/icons/svg/objects/menu.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    transform-origin: center;
+
+    &.open {
+        background-image: url(../../../assets/icons/svg/close.svg);
+    }
+}
+
+.ui-hamburger-list {
+    position: fixed;
+    height: calc(100vh - 51px);
+    top: 51px;
+    width: 100vw;
+    background-color: $colorT4;
+    z-index: 1000;
+
+    >.item {
+        cursor: pointer;
+        user-select: none;
+        padding: 1em;
+        font-weight: bold;
+        text-align: center;
+
+        &.selected {
+            color: $colorAccent;
+        }
+    }
+}

@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { ProfileBox } from "./ProfileBox";
 import "./Sidebar.scss";
 import { useNavigate } from "react-router-dom";
+import { HamburgerMenu } from "./menu/HamburgerMenu";
 
 interface SidebarProps {
     username: string;
@@ -8,19 +10,36 @@ interface SidebarProps {
     primaryAction?: ()=>void;
 }
 
+export interface SidebarLink {
+    name: string;
+    link: string;
+    selected: boolean;
+};
+
+const MEDIA_MOBILE_MAXWIDTH = 768;
+
 /**
  * Represents a UI sidebar.
  */
 export const Sidebar = (props: SidebarProps)=> {
     const navigate = useNavigate();
+    const [isMobile, setIsMobile] = useState(false);
 
-    const links = [
+    // Resize effect
+    useEffect(()=>{
+        const resizeEvent = ()=>setIsMobile(window.innerWidth <= MEDIA_MOBILE_MAXWIDTH);
+        resizeEvent(); // Call manually
+        window.addEventListener('resize', resizeEvent);
+        return ()=>window.removeEventListener('resize', resizeEvent);
+    });
+
+    const links : SidebarLink[] = [
         { name: "Feed", link: "/feed", selected: false },
         { name: "Discover", link: "/discover", selected: false },
         { name: "Notifications", link: "/notifications", selected: false },
         { name: "Messages", link: "/dm", selected: false },
         { name: "Profile", link: "/user/@%U".replace("%U", props.username), selected: false },
-    ]
+    ];
 
     // Figure out which one is selected
     const curPath = window.location.pathname;
@@ -30,7 +49,10 @@ export const Sidebar = (props: SidebarProps)=> {
             links[i].selected = true;
     });
 
-    return <div className="sidebar">
+    return isMobile ? <div className="sidebar-mobile">
+        <HamburgerMenu links={links}/>
+        <div className="title">Twit2</div>
+    </div> : <div className="sidebar">
         <div className="title">Twit2</div>
         <ProfileBox username={props.username ?? '<unknown>'} avatarUrl={props.avatarUrl ?? ''}/>
         <div className="buttons">
