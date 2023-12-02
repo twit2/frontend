@@ -1,0 +1,51 @@
+@import "../../../style/colors.scss";
+@import "../../../style/icons.scss";
+
+.ui-cmd-list {
+    .cmd-item {
+        display: flex;
+        padding: 1em;
+        box-sizing: border-box;
+        border-bottom: 1px solid $colorT5;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $colorT5;
+        }
+        
+        // Icon registry
+        .p1>.icon {
+            width: 48px;
+            height: 48px;
+            margin-right: 1em;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            @include iconslib();
+        }
+
+        .p2 {
+            flex: 1;
+            user-select: none;
+
+            >.title {
+                font-weight: bold;
+                margin-bottom: 0.75em;
+            }
+
+            >.description {
+                color: gray;
+            }
+        }
+
+        >.arrow {
+            background-image: url(../../../assets/icons/svg/symbols/arrow-right.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 24px;
+            width: 24px;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+    }
+}

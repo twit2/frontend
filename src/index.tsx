@@ -11,6 +11,7 @@ import { PostView } from './ui/main/sublayouts/PostView';
 import { DiscoverView } from './ui/main/sublayouts/DiscoverView';
 import { MessagesView } from './ui/main/sublayouts/MessagesView';
 import { NotificationsView } from './ui/main/sublayouts/NotificationsView';
+import { SettingsView } from './ui/main/sublayouts/SettingsView';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -30,6 +31,8 @@ export default function App() {
             <Route path="/feed" element={<FeedView/>}/>
             <Route path="/user/:name" element={<ProfileView/>} />
             <Route path="/user/:name/post/:id" element={<PostView/>} />
+            <Route path="/settings" element={<SettingsView/>}/>
+            <Route path="/settings/:page" element={<SettingsView/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

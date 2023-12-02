@@ -1,0 +1,36 @@
+@import "../../../../style/colors.scss";
+
+.view.settings>.sv-about {
+    display: flex;
+
+    >.box {
+        margin-top: 2em;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+
+        >.logo {
+            height: 128px;
+            width: 128px;
+            margin-left: auto;
+            margin-right: auto;
+            background-image: url(../../../../assets/misc/logo.png);
+            background-size: contain;
+        }
+
+        >.title {
+            font-weight: bold;
+            font-size: 24px;
+            margin: 1em 0;
+        }
+
+        >.line {
+            color: lightgray;
+            margin-bottom: 1em;
+
+            a {
+                color: $colorAccent;
+            }
+        }
+    }
+}

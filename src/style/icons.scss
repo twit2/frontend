@@ -1,5 +1,8 @@
 @mixin iconslib {
+    &.t2 { background-image: url(../assets/misc/logo.png); }
     &.link { background-image: url(../assets/icons/svg/link.svg); }
     &.edit { background-image: url(../assets/icons/svg/actions/edit.svg); }
     &.delete { background-image: url(../assets/icons/svg/actions/delete.svg); }
+    &.profile { background-image: url(../assets/icons/svg/user/profile.svg); }
+    &.accounts { background-image: url(../assets/icons/svg/objects/accounts.svg); }
 }

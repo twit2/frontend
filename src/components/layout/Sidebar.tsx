@@ -39,6 +39,7 @@ export const Sidebar = (props: SidebarProps)=> {
         { name: "Notifications", link: "/notifications", selected: false },
         { name: "Messages", link: "/dm", selected: false },
         { name: "Profile", link: "/user/@%U".replace("%U", props.username), selected: false },
+        { name: "Settings", link: "/settings", selected: false }
     ];
 
     // Figure out which one is selected

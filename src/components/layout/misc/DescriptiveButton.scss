@@ -1,0 +1,25 @@
+.ui-desc-btn {
+    display: flex;
+    margin-bottom: 1.5em;
+
+    >.text {
+        flex: 1;
+        line-height: 1.4;
+
+        >.title {
+            margin-bottom: 0.5em;
+        }
+        
+        >.explanation {
+            color: gray;
+        }
+    }
+    
+    >.buttons {
+        margin-left: 1em;
+
+        >button {
+            padding: 0.5em 1.5em;
+        }
+    }
+}
