@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { PartialUser } from "../../api/user/PartialUser"
 import { AppContext } from "../../app/AppContext"
 import { ProfileListItem } from "./ProfileListItem"
-import { sendAPIRequest } from "../../api/APIRequester";
 import { PaginatedAPIData } from "../../api/PaginatedAPIData";
 import { LoadBox } from "./LoadBox";
+import { UserManager } from "../../app/UserManager";
 
 export enum ProfileListMode {
     Latest,
@@ -23,23 +23,23 @@ export const ProfileList = (props: { mode: ProfileListMode, target: string })=>{
             if(done)
                 return;
 
-            let userResp;
+            let userResp: PaginatedAPIData<PartialUser>;
 
-            switch(props.mode) {
-                case ProfileListMode.Latest:
-                default:
-                    userResp = await sendAPIRequest<PaginatedAPIData<PartialUser>>(`/user/latest/${page}`, "GET");
-                    break;
-            }
-
-            if((userResp.data == null) || (!userResp.success)) {
+            try {
+                switch(props.mode) {
+                    case ProfileListMode.Latest:
+                    default:
+                        userResp = await UserManager.getLatestProfiles(page);
+                        break;
+                }
+            } catch(e) {
                 AppContext.ui.createDlg({ title: "Error", content: "Unable to retrieve list." })
                 return;
             }
 
-            const newUsers = userResp.data?.data as PartialUser[];
+            const newUsers = userResp.data as PartialUser[];
 
-            setShowLoader(newUsers.length >= userResp.data.pageSize);
+            setShowLoader(newUsers.length >= userResp.pageSize);
 
             setUsers([
                 ...users ?? [],

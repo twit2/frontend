@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { PartialUser } from "../../../api/user/PartialUser";
 import { LoadingContainer } from "../../../components/basic/LoadingContainer";
 import { ProfileBanner } from "../../../components/page/user/ProfileBanner";
-import { sendAPIRequest } from "../../../api/APIRequester";
 import { BiographyBox } from "../../../components/page/user/BiographyBox";
 import { AppContext } from "../../../app/AppContext";
 import { PostBox, PostBoxMode } from "../../../components/main/post/PostBox";
+import { UserManager } from "../../../app/UserManager";
 
 export const ProfileView = ()=>{
     const params = useParams();
@@ -22,19 +22,11 @@ export const ProfileView = ()=>{
             return;
 
         try {
-            // Get user
-            const userResp = await sendAPIRequest<PartialUser>(`/user/${targetUsername}`, "GET");
-
-            if((userResp.data == null) || (!userResp.success)) {
-                AppContext.ui.createDlg({ title: "Error", content: "Failed to refresh user profile!" })
-                return;
-            }
-
-            // Do this last since this changes the visual ui
-            setUser(userResp.data);
+            setUser(await UserManager.getUserByName(targetUsername.substring(1)));
         } catch(e) {
-            // Inform user of error
+            AppContext.ui.createDlg({ title: "Error", content: "Failed to refresh user profile!" });
             console.error(e);
+            return;
         }
     }
 

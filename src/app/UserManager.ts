@@ -1,6 +1,9 @@
 import { assertResponse, sendAPIRequest } from "../api/APIRequester";
+import { PaginatedAPIData } from "../api/PaginatedAPIData";
 import { PartialUser } from "../api/user/PartialUser";
+import { AppContext } from "./AppContext";
 import { ObjectStores } from "./ObjectStores";
+import { UserChangeOp } from "./op/user/UserChangeOp";
 
 export const USER_ENDPOINT = `/user`;
 
@@ -14,6 +17,19 @@ async function getUserById(id: string) {
 }
 
 /**
+ * Gets a user by name.
+ * @param username The username of the user to get.
+ * @returns The user.
+ */
+async function getUserByName(username: string) {
+    const userResp = assertResponse(await sendAPIRequest<PartialUser>(`${USER_ENDPOINT}/@${username}`, "GET"), {
+        dataRequired: true
+    });
+
+    return ObjectStores.user.update(userResp.data as PartialUser);
+}
+
+/**
  * Gets the currently logged in user.
  */
 async function getCurrentUser() {
@@ -21,10 +37,40 @@ async function getCurrentUser() {
         dataRequired: true
     });
 
-    return ObjectStores.user.update(userResp.data as PartialUser);
+    AppContext.currentUser = ObjectStores.user.update(userResp.data as PartialUser);
+    return AppContext.currentUser;
+}
+
+/**
+ * Updates a user profile.
+ * @param changes The changes to make.
+ */
+async function updateUserProfile(changes: UserChangeOp) {
+    const userResp = assertResponse(await sendAPIRequest<PartialUser>(`${USER_ENDPOINT}/@me`, "PATCH", changes), {
+        dataRequired: true
+    });
+
+    AppContext.currentUser = ObjectStores.user.update(userResp.data as PartialUser);
+    return AppContext.currentUser;
+}
+
+/**
+ * Gets the latest user profiles.
+ * @param page The page of profiles to retrieve.
+ */
+async function getLatestProfiles(page: number): Promise<PaginatedAPIData<PartialUser>> {
+    const usersResp : PaginatedAPIData<PartialUser> = assertResponse(await sendAPIRequest<PaginatedAPIData<PartialUser>>(`${USER_ENDPOINT}/latest/${page}`, "GET"), {
+        dataRequired: true
+    }).data as PaginatedAPIData<PartialUser>;
+
+    usersResp.data?.map(x => ObjectStores.user.update(x));
+    return usersResp;
 }
 
 export const UserManager = {
+    getLatestProfiles,
+    updateUserProfile,
     getCurrentUser,
+    getUserByName,
     getUserById
 }
