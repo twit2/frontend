@@ -4,8 +4,7 @@ import { PartialUser } from "../../api/user/PartialUser"
 import "./ReplyBox.scss";
 import { useState } from "react";
 import { ErrorBox } from "../form/ErrorBox";
-import { APIResponse } from "../../api/APIResponse";
-import { sendAPIRequest } from "../../api/APIRequester";
+import { PostManager } from "../../app/PostManager";
 
 export const ReplyBox = (props: { user: PartialUser, post: Post })=>{
     const nav = useNavigate();
@@ -16,15 +15,16 @@ export const ReplyBox = (props: { user: PartialUser, post: Post })=>{
      * Submits the reply.
      */
     async function submit() {
-        let apiReq: APIResponse<Post> = await sendAPIRequest(`/post`, "POST", {
-            textContent: reply,
-            replyToId: props.post.id
-        });
+        try {
+            await PostManager.createPost({
+                textContent: reply,
+                replyToId: props.post.id
+            });
 
-        if(!apiReq.success)
-            setError(apiReq.message);
-        else
             document.location.reload();
+        } catch(e) {
+            setError((e as Error).message);
+        }
     }
 
     return <div className="ui-reply-box">

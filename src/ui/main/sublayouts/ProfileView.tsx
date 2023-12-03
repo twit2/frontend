@@ -7,7 +7,7 @@ import { ProfileBanner } from "../../../components/page/user/ProfileBanner";
 import { sendAPIRequest } from "../../../api/APIRequester";
 import { BiographyBox } from "../../../components/page/user/BiographyBox";
 import { AppContext } from "../../../app/AppContext";
-import { PostBox, PostBoxMode } from "../../../components/main/PostBox";
+import { PostBox, PostBoxMode } from "../../../components/main/post/PostBox";
 
 export const ProfileView = ()=>{
     const params = useParams();

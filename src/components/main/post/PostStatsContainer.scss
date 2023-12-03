@@ -1,0 +1,29 @@
+@import "../../../style/icons.scss";
+@import "../../../style/colors.scss";
+
+.ui-post-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    >.stat-btn {
+        cursor: pointer;
+        filter: brightness(0.5);
+        user-select: none;
+
+        &:hover {
+            filter: brightness(0.8);
+        }
+
+        .icon, .count {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .icon {
+            height: 24px;
+            width: 24px;
+            margin-right: 5px;
+            @include iconslib();
+        }
+    }
+}

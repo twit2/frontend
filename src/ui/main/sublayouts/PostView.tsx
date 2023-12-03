@@ -3,12 +3,12 @@ import { Post } from "../../../api/posts/Post";
 import { TitleHeader } from "../../../components/layout/TitleHeader";
 import { useParams } from "react-router-dom";
 import { PartialUser } from "../../../api/user/PartialUser";
-import { sendAPIRequest } from "../../../api/APIRequester";
 import { LoadingContainer } from "../../../components/basic/LoadingContainer";
-import { PostComponent } from "../../../components/main/PostComponent";
+import { PostComponent } from "../../../components/main/post/PostComponent";
 import { AppContext } from "../../../app/AppContext";
 import { ReplyBox } from "../../../components/post/ReplyBox";
-import { PostBox, PostBoxMode } from "../../../components/main/PostBox";
+import { PostBox, PostBoxMode } from "../../../components/main/post/PostBox";
+import { PostManager } from "../../../app/PostManager";
 
 export const PostView = ()=> {
     const params = useParams();
@@ -21,16 +21,11 @@ export const PostView = ()=> {
         const fetchPost = async()=> {
             try {
                 // Get posts
-                const postResp = await sendAPIRequest<Post>(`/post/view/${targetPost}`, "GET");
-
-                if((postResp.data == null) || (!postResp.success)) {
-                    AppContext.ui.createDlg({ title: "Error", content: "Unable to retrieve posts." })
-                    return;
-                }
-
-                setPost(postResp.data);
+                const postResp = await PostManager.getPost(targetPost);
+                setPost(postResp);
             } catch(e) {
                 // Inform user of error
+                AppContext.ui.createDlg({ title: "Error", content: "Unable to retrieve posts." })
                 console.error(e);
             }
         }

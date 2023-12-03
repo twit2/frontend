@@ -5,7 +5,6 @@ import { LoadingContainer } from "../../components/basic/LoadingContainer";
 import { Sidebar } from "../../components/layout/Sidebar";
 import "./MainPage.scss";
 import { PartialUser } from "../../api/user/PartialUser";
-import { sendAPIRequest } from "../../api/APIRequester";
 import { Outlet, useNavigate } from "react-router-dom";
 import { DialogContainer } from "../../components/wm/DialogContainer";
 import { NewPostDialog, PostDialogMode } from "./dialogs/NewPostDialog";
@@ -13,6 +12,8 @@ import { Dialog } from "../../components/wm/Dialog";
 import { AppContext } from "../../app/AppContext";
 import { DialogArgs } from "../wm/dlg/DialogArgs";
 import { BasicDialog } from "../../components/wm/BasicDialog";
+import { UserManager } from "../../app/UserManager";
+import { APIError } from "../../api/APIError";
 
 enum DialogId {
     None = 0,
@@ -51,23 +52,18 @@ export const MainPage = ()=> {
                 return;
 
             try {
-                const userResp = await sendAPIRequest<PartialUser>("/user/@me", "GET");
-
-                if((userResp.data == null) || (!userResp.success)) {
-                    // Redirect to login page if 403
-                    if(userResp.code === 1003) {
+                const fetchedUser = await UserManager.getCurrentUser();
+                setUser(fetchedUser);
+                AppContext.currentUser = fetchedUser;
+            } catch(e) {
+                if(e instanceof APIError) {
+                    if(e.resp.code === 1003) {
                         navigate('/');
                         return;
                     }
-
-                    AppContext.ui.createDlg({ title: "Error", content: "Failed to refresh user profile!" })
-                    return;
                 }
-                
-                setUser(userResp.data);
-                AppContext.currentUser = userResp.data;
-            } catch(e) {
-                // Inform user of error
+
+                AppContext.ui.createDlg({ title: "Error", content: "Failed to refresh user profile!" })
                 console.error(e);
             }
         }

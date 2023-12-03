@@ -3,9 +3,8 @@ import "./NewPostDialog.scss";
 import { ErrorBox } from "../../../components/form/ErrorBox"
 import { PostEditorComponent } from "../../../components/post/PostEditorComponent"
 import { useState } from "react";
-import { sendAPIRequest } from "../../../api/APIRequester";
 import { Post } from "../../../api/posts/Post";
-import { APIResponse } from "../../../api/APIResponse";
+import { PostManager } from "../../../app/PostManager";
 
 export enum PostDialogMode {
     Edit,
@@ -27,27 +26,21 @@ export const NewPostDialog = (props: { mode: PostDialogMode, prev?: Post }) => {
             return;
         }
 
-        let apiReq: APIResponse<Post>;
+        try {
+            switch(props.mode) {
+                default:
+                case PostDialogMode.Create:
+                    await PostManager.createPost({ textContent: postText });
+                    break;
+                case PostDialogMode.Edit:
+                    await PostManager.editPost(props.prev?.id as string, { textContent: postText });
+                    break;
+            }
 
-        switch(props.mode) {
-            default:
-            case PostDialogMode.Create:
-                apiReq = await sendAPIRequest("/post", "POST", {
-                    textContent: postText
-                });
-                break;
-            case PostDialogMode.Edit:
-                apiReq = await sendAPIRequest(`/post/${props.prev?.id}`, "PATCH", {
-                    id: props.prev?.id,
-                    textContent: postText
-                });
-                break;
+            document.location.reload();
+        } catch(e) {
+            setError((e as Error).message);
         }
-
-        if(!apiReq.success)
-            setError(apiReq.message);
-        else
-            document.location.reload(); // Hacky!!!
     } 
 
     return <div className="new-post-dlg">

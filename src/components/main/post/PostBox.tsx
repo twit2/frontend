@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Post } from "../../api/posts/Post";
-import { sendAPIRequest } from "../../api/APIRequester";
-import { PaginatedAPIData } from "../../api/PaginatedAPIData";
-import { AppContext } from "../../app/AppContext";
-import { PostComponent } from "./PostComponent";
-import { LoadBox } from "./LoadBox";
+import { Post } from "../../../api/posts/Post";
+import { PaginatedAPIData } from "../../../api/PaginatedAPIData";
+import { AppContext } from "../../../app/AppContext";
+import { LoadBox } from "../LoadBox";
 import { useNavigate } from "react-router-dom";
+import { PartialUser } from "../../../api/user/PartialUser";
+import { PostComponent } from "./PostComponent";
+import { PostManager } from "../../../app/PostManager";
 
 export enum PostBoxMode {
     ProfilePosts,
@@ -22,30 +23,31 @@ export const PostBox = (props: { mode: PostBoxMode, target: string })=>{
 
     const fetchPosts = async() => {
         // Get posts
-        let postResp;
+        let postResp: PaginatedAPIData<Post>;
 
-        switch(props.mode) {
-            case PostBoxMode.Replies:
-                postResp = await sendAPIRequest<PaginatedAPIData<Post>>(`/post/${props.target}/replies/${page}`, "GET");
-                break;
-            case PostBoxMode.LatestPosts:
-                postResp = await sendAPIRequest<PaginatedAPIData<Post>>(`/post/latest/${page}`, "GET");
-                break;
-            case PostBoxMode.ProfilePosts:
-            default:
-                postResp = await sendAPIRequest<PaginatedAPIData<Post>>(`/post/${props.target}/${page}`, "GET");
-                break;
-        }
-
-        if((postResp.data == null) || (!postResp.success)) {
+        try {
+            switch(props.mode) {
+                case PostBoxMode.Replies:
+                    postResp = await PostManager.getReplies(props.target, page);
+                    break;
+                case PostBoxMode.LatestPosts:
+                    postResp = await PostManager.getLatestPosts(page);
+                    break;
+                case PostBoxMode.ProfilePosts:
+                default:
+                    postResp = await PostManager.getUserPosts(props.target, page);
+                    break;
+            }
+        } catch(e) {
+            console.error(e);
             AppContext.ui.createDlg({ title: "Error", content: "Unable to retrieve posts." })
             setPosts([]);
             return;
         }
 
-        const newPosts = postResp.data?.data as Post[];
+        const newPosts = postResp.data as Post[];
 
-        setShowLoader(newPosts.length >= postResp.data.pageSize);
+        setShowLoader(newPosts.length >= postResp.pageSize);
 
         if(!pageHistory.includes(page)) {
             setPosts([
@@ -55,6 +57,7 @@ export const PostBox = (props: { mode: PostBoxMode, target: string })=>{
 
             setPageHistory([...pageHistory, ...[page]]);
         }
+
         // TODO fix
         
         return ()=> {
@@ -79,7 +82,7 @@ export const PostBox = (props: { mode: PostBoxMode, target: string })=>{
     }, [props.target]);
 
     return <div className="post-box">
-        { (posts ?? []).map(x => <PostComponent post={x} key={x.id} static={false} onclick={(user)=>{
+        { (posts ?? []).map(x => <PostComponent post={x} key={x.id} static={false} onclick={(user?: PartialUser)=>{
             nav(`/user/@${user?.username}/post/${x.id}`);
         }}/>) }
         { (showLoader) ? <LoadBox loading={false} label="Load More" onclick={()=>{

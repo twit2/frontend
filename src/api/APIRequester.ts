@@ -1,4 +1,5 @@
 import { APIConfiguration } from "./APIConfiguration";
+import { APIError } from "./APIError";
 import { APIResponse } from "./APIResponse";
 
 /**
@@ -33,4 +34,22 @@ export async function sendAPIRequest<T>(path: string, method: string, body?: any
     }
 
     return json;
+}
+
+interface RespAssertOptions {
+    dataRequired?: boolean;
+}
+
+/**
+ * Asserts whether a response is successful.
+ * @param resp The response to assert.
+ */
+export const assertResponse = <T>(resp: APIResponse<T>, opts: RespAssertOptions = {}) => {
+    if(!resp.success)
+        throw new APIError(resp);
+
+    if((!resp.data) && opts.dataRequired)
+        throw new APIError(resp);
+
+    return resp;
 }

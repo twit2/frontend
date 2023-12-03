@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TabControl } from "../../../components/layout/TabControl"
 import { TitleHeader } from "../../../components/layout/TitleHeader"
-import { PostBox, PostBoxMode } from "../../../components/main/PostBox";
+import { PostBox, PostBoxMode } from "../../../components/main/post/PostBox";
 import { ProfileList, ProfileListMode } from "../../../components/main/ProfileList";
 
 export const DiscoverView = ()=>{

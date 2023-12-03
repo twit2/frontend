@@ -1,14 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import { Post } from "../../api/posts/Post";
-import { PartialUser } from "../../api/user/PartialUser";
+import { Post } from "../../../api/posts/Post";
+import { PartialUser } from "../../../api/user/PartialUser";
 import "./PostComponent.scss";
-import { DropDownButton } from "../basic/DropDownButton";
-import { DropDownMenuItem } from "../basic/DropDownMenu";
-import { AppContext } from "../../app/AppContext";
-import { PostRemoveDialog } from "../post/dialogs/PostRemoveDialog";
-import { NewPostDialog, PostDialogMode } from "../../ui/main/dialogs/NewPostDialog";
+import { DropDownButton } from "../../basic/DropDownButton";
+import { DropDownMenuItem } from "../../basic/DropDownMenu";
+import { AppContext } from "../../../app/AppContext";
+import { PostRemoveDialog } from "../../post/dialogs/PostRemoveDialog";
+import { NewPostDialog, PostDialogMode } from "../../../ui/main/dialogs/NewPostDialog";
 import { useEffect, useState } from "react";
-import { FetchStores } from "../../app/FetchStores";
+import { ObjectStores } from "../../../app/ObjectStores";
+import { PostStatsContainer } from "./PostStatsContainer";
 
 export const PostComponent = (props: { post: Post, static: boolean, onclick?: (user?: PartialUser)=>void })=>{
     const nav = useNavigate();
@@ -17,7 +18,7 @@ export const PostComponent = (props: { post: Post, static: boolean, onclick?: (u
 
     useEffect(()=> {
         async function fetchUser() {
-            setUser(await FetchStores.user.get(props.post.authorId));
+            setUser(await ObjectStores.user.get(props.post.authorId));
         }
 
         fetchUser();
@@ -60,22 +61,27 @@ export const PostComponent = (props: { post: Post, static: boolean, onclick?: (u
             props.onclick(user);
 
     }}>
-        <div className="left">
-            <div className="avatar" onClick={()=>nav(`/user/@${user?.username}`)} style={{ /* backgroundImage: `${props.user.avatarUrl}` */ }}></div>
+        <div className="top">
+            <div className="left">
+                <div className="avatar" onClick={()=>nav(`/user/@${user?.username}`)} style={{ /* backgroundImage: `${props.user.avatarUrl}` */ }}></div>
+            </div>
+            <div className="right">
+                <div className="user-info">
+                    <span className="dname" onClick={()=>nav(`/user/@${user?.username}`)}>{(user?.displayName !== '') ? user?.displayName : user?.username}</span> 
+                    <span className="uname"> @{user?.username}</span>
+                    <DropDownButton items={dropdownItems} args={props.post}/>
+                </div>
+                <div className="text-content">
+                    { props.post.textContent }
+                    { (props.post.dateEdited != null) ? <span className="edited-indicator"> (edited)</span> : '' }
+                </div>
+                <div className="date-marker">
+                    <span className="date">{new Date(props.post.datePosted).toDateString()} @ {new Date(props.post.datePosted).toLocaleTimeString()}</span>
+                </div>
+            </div>
         </div>
-        <div className="right">
-            <div className="user-info">
-                <span className="dname" onClick={()=>nav(`/user/@${user?.username}`)}>{(user?.displayName !== '') ? user?.displayName : user?.username}</span> 
-                <span className="uname"> @{user?.username}</span>
-                <DropDownButton items={dropdownItems} args={props.post}/>
-            </div>
-            <div className="text-content">
-                { props.post.textContent }
-                { (props.post.dateEdited != null) ? <span className="edited-indicator"> (edited)</span> : '' }
-            </div>
-            <div className="date-marker">
-                <span className="date">{new Date(props.post.datePosted).toDateString()} @ {new Date(props.post.datePosted).toLocaleTimeString()}</span>
-            </div>
+        <div className="bottom">
+            <PostStatsContainer post={props.post}/>
         </div>
     </div>;
 }

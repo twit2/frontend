@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AppContext } from "../../../app/AppContext";
 import { ErrorBox } from "../../form/ErrorBox";
 import "./PostRemoveDialog.scss";
-import { sendAPIRequest } from "../../../api/APIRequester";
+import { PostManager } from "../../../app/PostManager";
 
 export const PostRemoveDialog = (props: { id: string })=>{
     const [error, setError] = useState("");
@@ -11,16 +11,16 @@ export const PostRemoveDialog = (props: { id: string })=>{
      * Deletes the post.
      */
     const deletePost = async()=> {
-        const resp = await sendAPIRequest(`/post/${props.id}`, 'DELETE');
+        try {
+            await PostManager.deletePost(props.id);
 
-        if(!resp.success) {
-            setError(resp.message);
-        } else {
             // Remove post from feed
             if(window.location.pathname.endsWith(props.id))
                 window.history.go(-1);
 
             document.location.reload();
+        } catch(e) {
+            setError((e as Error).message);
         }
     }
 
