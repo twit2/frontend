@@ -3,8 +3,8 @@ import { Form } from "../../../components/form/Form";
 import { FormInputField } from "../../../components/form/FormInputField";
 import { ErrorBox } from "../../../components/form/ErrorBox";
 import { LoadingContainer } from "../../../components/basic/LoadingContainer";
-import { sendAPIRequest } from "../../../api/APIRequester";
 import { useNavigate } from "react-router-dom";
+import { AuthManager } from "../../../app/AuthManager";
 
 export const RegisterDialog = ()=>{
     let [error, setError] = useState("");
@@ -27,16 +27,13 @@ export const RegisterDialog = ()=>{
 
         setBusy(true);
 
-        // Send login request
-        const result = await sendAPIRequest<string>("/auth/register", "POST", { username, password });
-        
-        if(!result.success) {
-            setError(`Could not register: ${result.message}`);
-            setBusy(false);
-        } else {
-            // Store token and navigate to home page
-            localStorage.setItem('auth-token', result.data as string);
+        // Send register request
+        try {
+            await AuthManager.register(username, password);
             nav(`/feed`);
+        } catch(e) {
+            setError(`Could not register: ${(e as Error).message}`);
+            setBusy(false);
         }
     }
 

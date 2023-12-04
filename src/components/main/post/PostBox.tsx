@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { PartialUser } from "../../../api/user/PartialUser";
 import { PostComponent } from "./PostComponent";
 import { PostManager } from "../../../app/PostManager";
+import { MessageListItem } from "../../layout/lists/MessageListItem";
 
 export enum PostBoxMode {
     ProfilePosts,
@@ -82,6 +83,7 @@ export const PostBox = (props: { mode: PostBoxMode, target: string })=>{
     }, [props.target]);
 
     return <div className="post-box">
+        { (posts?.length === 0) ? <MessageListItem message={(props.mode === PostBoxMode.Replies) ? 'No replies. Be the first to share your opinion!' : 'No posts :('}/> : '' }
         { (posts ?? []).map(x => <PostComponent post={x} key={x.id} static={false} onclick={(user?: PartialUser)=>{
             nav(`/user/@${user?.username}/post/${x.id}`);
         }}/>) }

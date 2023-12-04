@@ -3,8 +3,8 @@ import { Form } from "../../../components/form/Form";
 import { FormInputField } from "../../../components/form/FormInputField";
 import { ErrorBox } from "../../../components/form/ErrorBox";
 import { LoadingContainer } from "../../../components/basic/LoadingContainer";
-import { sendAPIRequest } from "../../../api/APIRequester";
 import { useNavigate } from "react-router-dom";
+import { AuthManager } from "../../../app/AuthManager";
 
 export const LoginDialog = ()=>{
     let [error, setError] = useState("");
@@ -29,15 +29,12 @@ export const LoginDialog = ()=>{
         setBusy(true);
 
         // Send login request
-        const result = await sendAPIRequest<string>("/auth/login", "POST", { username, password });
-        
-        if(!result.success) {
-            setError(`Could not login: ${result.message}`);
-            setBusy(false);
-        } else {
-            // Store token and navigate to home page
-            localStorage.setItem('auth-token', result.data as string);
+        try {
+            await AuthManager.login(username, password);
             nav(`/feed`);
+        } catch(e) {
+            setError(`Could not login: ${(e as Error).message}`);
+            setBusy(false);
         }
     }
 
