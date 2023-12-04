@@ -1,5 +1,6 @@
 import { PartialUser } from "../../../api/user/PartialUser"
 import { AppContext } from "../../../app/AppContext"
+import { AvatarBox } from "../../layout/AvatarBox";
 import "./ProfileBanner.scss"
 import { ProfileEditDialog } from "./dialogs/ProfileEditDialog";
 
@@ -15,7 +16,7 @@ export const ProfileBanner = (props: { user: PartialUser }) => {
 
     return <div className="ui-pfbanner">
         <div className="profile">
-            <div className="avatar"></div>
+            <AvatarBox user={props.user}/>
             <div className="information">
                 { props.user.displayName !== '' ? <>
                     <div className="name">{props.user.displayName}</div>

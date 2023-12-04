@@ -3,7 +3,7 @@
 @mixin profile-picture($url) {
     background-image: $url;
     background-color: #5b5b5b;
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 100%;

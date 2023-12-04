@@ -1,3 +1,4 @@
+import { APIConfiguration } from "../api/APIConfiguration";
 import { assertResponse, sendAPIRequest } from "../api/APIRequester";
 import { PaginatedAPIData } from "../api/PaginatedAPIData";
 import { PartialUser } from "../api/user/PartialUser";
@@ -67,10 +68,19 @@ async function getLatestProfiles(page: number): Promise<PaginatedAPIData<Partial
     return usersResp;
 }
 
+/**
+ * Returns an avatar URL.
+ */
+function getAvatarURL(user: PartialUser): string|undefined {
+    if(user.avatarURL)
+        return `${APIConfiguration.apiCdnUrl}${user.avatarURL}`;
+}
+
 export const UserManager = {
     getLatestProfiles,
     updateUserProfile,
     getCurrentUser,
     getUserByName,
-    getUserById
+    getUserById,
+    getAvatarURL
 }

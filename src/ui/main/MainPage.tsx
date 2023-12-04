@@ -101,7 +101,7 @@ export const MainPage = ()=> {
         <div className="page main">
             <div className="main-layout">
                 <div className="left">
-                    <Sidebar username={user?.username} avatarUrl={user?.avatarUrl} primaryAction={()=>setDialog(DialogId.NewPost)}/>
+                    <Sidebar username={user?.username} avatarUrl={user?.avatarURL} primaryAction={()=>setDialog(DialogId.NewPost)}/>
                 </div>
                 <div className="right">
                     <Outlet/>

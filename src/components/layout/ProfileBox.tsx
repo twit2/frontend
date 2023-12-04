@@ -1,23 +1,11 @@
-/**
- * Profile box properties.
- */
-interface ProfileBoxProps {
-    /**
-     * The avatar URL to use.
-     */
-    avatarUrl: string;
-
-    /**
-     * The username to display.
-     */
-    username: string;
-}
+import { PartialUser } from "../../api/user/PartialUser";
+import { AvatarBox } from "./AvatarBox";
 
 /**
  * Creates a new profile box.
  * @param props Properties.
  */
-export const ProfileBox = (props: ProfileBoxProps)=><div className="profile-box">
-    <div className="avatar" style={{ /*backgroundImage: `url(${props.avatarUrl})`*/ }}></div>
-    <div className="username">@{props.username}</div>
+export const ProfileBox = (props: { user?: PartialUser })=><div className="profile-box">
+    <AvatarBox user={props.user}/>
+    <div className="username">@{(props.user != null) ? props.user.username : '<unknown>'}</div>
 </div>

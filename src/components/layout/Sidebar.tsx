@@ -3,6 +3,7 @@ import { ProfileBox } from "./ProfileBox";
 import "./Sidebar.scss";
 import { useNavigate } from "react-router-dom";
 import { HamburgerMenu } from "./menu/HamburgerMenu";
+import { AppContext } from "../../app/AppContext";
 
 interface SidebarProps {
     username: string;
@@ -55,7 +56,7 @@ export const Sidebar = (props: SidebarProps)=> {
         <div className="title">Twit2</div>
     </div> : <div className="sidebar">
         <div className="title">Twit2</div>
-        <ProfileBox username={props.username ?? '<unknown>'} avatarUrl={props.avatarUrl ?? ''}/>
+        <ProfileBox user={AppContext.currentUser}/>
         <div className="buttons">
             { links.map(x => <button className={(x.selected ? 'selected' : '')} key={x.link} onClick={()=>navigate(x.link)}>{x.name}</button>) }
             <button className="primary" onClick={()=>props.primaryAction?.call(this)}>+ Create Post</button>

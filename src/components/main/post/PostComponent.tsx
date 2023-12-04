@@ -10,6 +10,7 @@ import { NewPostDialog, PostDialogMode } from "../../../ui/main/dialogs/NewPostD
 import { useEffect, useState } from "react";
 import { ObjectStores } from "../../../app/ObjectStores";
 import { PostStatsContainer } from "./PostStatsContainer";
+import { AvatarBox } from "../../layout/AvatarBox";
 
 export const PostComponent = (props: { post: Post, static: boolean, onclick?: (user?: PartialUser)=>void })=>{
     const nav = useNavigate();
@@ -63,7 +64,7 @@ export const PostComponent = (props: { post: Post, static: boolean, onclick?: (u
     }}>
         <div className="top">
             <div className="left">
-                <div className="avatar" onClick={()=>nav(`/user/@${user?.username}`)} style={{ /* backgroundImage: `${props.user.avatarUrl}` */ }}></div>
+                <AvatarBox onClick={()=>nav(`/user/@${user?.username}`)} user={user}></AvatarBox>
             </div>
             <div className="right">
                 <div className="user-info">

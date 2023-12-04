@@ -5,6 +5,7 @@ import "./ReplyBox.scss";
 import { useState } from "react";
 import { ErrorBox } from "../form/ErrorBox";
 import { PostManager } from "../../app/PostManager";
+import { AvatarBox } from "../layout/AvatarBox";
 
 export const ReplyBox = (props: { user: PartialUser, post: Post })=>{
     const nav = useNavigate();
@@ -30,7 +31,7 @@ export const ReplyBox = (props: { user: PartialUser, post: Post })=>{
     return <div className="ui-reply-box">
         <div className="top">
             <div className="left">
-                <div className="avatar" onClick={()=>nav(`/user/@${props.user.username}`)} style={{ /* backgroundImage: `${props.user.avatarUrl}` */ }}></div>
+                <AvatarBox onClick={()=>nav(`/user/@${props.user.username}`)} user={props.user}/>
             </div>
             <div className="input">
                 <textarea className="ui-post-text" placeholder="Post a reply" onChange={(e)=>{

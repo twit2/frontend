@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom"
 import { PartialUser } from "../../api/user/PartialUser"
 import "./ProfileListItem.scss";
+import { AvatarBox } from "../layout/AvatarBox";
 
 export const ProfileListItem = (props: { target: PartialUser })=>{
     const nav = useNavigate();
 
     return <div className="profile-item">
         <div className="left">
-            <div className="avatar" onClick={()=>nav(`/user/@${props.target?.username}`)} style={{ /* backgroundImage: `${props.user.avatarUrl}` */ }}></div>
+            <AvatarBox onClick={()=>nav(`/user/@${props.target?.username}`)} user={props.target}/>
         </div>
         <div className="right">
             <div className="user-info">
