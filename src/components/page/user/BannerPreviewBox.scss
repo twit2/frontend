@@ -1,0 +1,36 @@
+@import "../../../style/mixins/ProfilePicture.scss";
+
+.ui-pb-preview {
+    margin-bottom: 6em;
+
+    >.banner {
+        width: 534px;
+        height: 198px;
+        background-color: #111111;
+    }
+
+    >.avatar {
+        @include profile-picture(url(../../../assets/icons/svg/user/profile.svg));
+        height: 128px;
+        width: 128px;
+        transform-origin: center;
+        position: absolute;
+        transform: translateX(10px) translateY(-50%);
+        border: 2px solid black;
+
+        &:hover {
+            cursor: pointer;
+            filter: brightness(0.8);
+
+            &::after {
+                content: 'Select avatar';
+                color: white;
+                text-shadow: 1px 1px black;
+                display: flex;
+                height: 100%;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+}

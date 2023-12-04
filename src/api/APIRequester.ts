@@ -13,14 +13,24 @@ export async function sendAPIRequest<T>(path: string, method: string, body?: any
         'Authorization': `Bearer ${localStorage.getItem('auth-token') ?? 'none'}`
     }
 
-    const res = await fetch(`${APIConfiguration.apiGwUrl}${path}`, {
+    const reqInit = {
         method,
-        headers: (method !== "GET") ? {
+        headers: ((method !== "GET") && (!(body instanceof FormData))) ? {
             ...hdr,
             ...{'Content-Type': 'application/json'}
-        } : hdr,
-        body: (method !== "GET") ? JSON.stringify(body) : undefined
-    });
+        } : hdr
+    } as any;
+
+    reqInit.body = body;
+
+    if(method !== "GET") {
+        if(body instanceof FormData)
+            reqInit.body = body;
+        else
+            reqInit.body = JSON.stringify(body);
+    }
+
+    const res = await fetch(`${APIConfiguration.apiGwUrl}${path}`, reqInit);
 
     let json;
     let clone = res.clone();

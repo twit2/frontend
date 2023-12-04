@@ -1,12 +1,14 @@
 import { APIConfiguration } from "../api/APIConfiguration";
 import { assertResponse, sendAPIRequest } from "../api/APIRequester";
 import { PaginatedAPIData } from "../api/PaginatedAPIData";
+import { DataObject } from "../api/cdn/DataObject";
 import { PartialUser } from "../api/user/PartialUser";
 import { AppContext } from "./AppContext";
 import { ObjectStores } from "./ObjectStores";
 import { UserChangeOp } from "./op/user/UserChangeOp";
 
 export const USER_ENDPOINT = `/user`;
+export const CDN_ENDPOINT = `/cdn`;
 
 /**
  * Gets a user by ID.
@@ -76,11 +78,31 @@ function getAvatarURL(user: PartialUser): string|undefined {
         return `${APIConfiguration.apiCdnUrl}${user.avatarURL}`;
 }
 
+/**
+ * Updates the current user's avatar.
+ * @param user The user to update the avatar for.
+ */
+async function updateAvatar(f: File) {
+    const formData = new FormData();
+    formData.append('files', f);
+
+    const cdnResponse = assertResponse<DataObject[]>(await sendAPIRequest<DataObject[]>(`${CDN_ENDPOINT}/avatars`, "POST", formData));
+    const dObj = (cdnResponse.data as DataObject[])[0];
+
+    // Update user object
+    const user = await ObjectStores.user.get((AppContext.currentUser as PartialUser).id);
+    user.avatarURL = dObj.urlPart;
+    ObjectStores.user.update(user);
+    
+    return dObj;
+}
+
 export const UserManager = {
     getLatestProfiles,
     updateUserProfile,
     getCurrentUser,
     getUserByName,
     getUserById,
-    getAvatarURL
+    getAvatarURL,
+    updateAvatar
 }
