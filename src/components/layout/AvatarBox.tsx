@@ -1,4 +1,4 @@
-import { PartialUser } from "../../api/user/PartialUser";
+import { PartialUser } from "@twit2/std-library-fe";
 import { UserManager } from "../../app/UserManager";
 
 interface AvatarProps {

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { PartialUser } from "../../../api/user/PartialUser";
+import { PartialUser } from "@twit2/std-library-fe";
 import { AvatarBox } from "../../layout/AvatarBox";
 import "./BannerPreviewBox.scss";
-import { fileToBase64 } from "../../../api/util/FileToBase64";
+import { fileToBase64 } from "@twit2/std-library-fe";
 
 interface BannerPreviewBoxProps {
     user: PartialUser;

@@ -3,7 +3,7 @@ import "./NewPostDialog.scss";
 import { ErrorBox } from "../../../components/form/ErrorBox"
 import { PostEditorComponent } from "../../../components/post/PostEditorComponent"
 import { useState } from "react";
-import { Post } from "../../../api/posts/Post";
+import { Post } from "@twit2/std-library-fe";
 import { PostManager } from "../../../app/PostManager";
 
 export enum PostDialogMode {

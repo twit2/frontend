@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import { TitleHeader } from "../../../components/layout/TitleHeader"
 import { useEffect, useState } from "react";
-import { PartialUser } from "../../../api/user/PartialUser";
+import { PartialUser } from "@twit2/std-library-fe";
 import { LoadingContainer } from "../../../components/basic/LoadingContainer";
 import { ProfileBanner } from "../../../components/page/user/ProfileBanner";
 import { BiographyBox } from "../../../components/page/user/BiographyBox";

@@ -1,4 +1,4 @@
-import { assertResponse, sendAPIRequest } from "../api/APIRequester";
+import { assertResponse, sendAPIRequest } from "@twit2/std-library-fe";
 
 export const AUTH_ENDPOINT = `/auth`;
 

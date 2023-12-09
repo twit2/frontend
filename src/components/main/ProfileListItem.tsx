@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { PartialUser } from "../../api/user/PartialUser"
+import { PartialUser } from "@twit2/std-library-fe"
 import "./ProfileListItem.scss";
 import { AvatarBox } from "../layout/AvatarBox";
 

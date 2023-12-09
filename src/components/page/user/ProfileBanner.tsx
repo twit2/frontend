@@ -1,4 +1,4 @@
-import { PartialUser } from "../../../api/user/PartialUser"
+import { PartialUser } from "@twit2/std-library-fe"
 import { AppContext } from "../../../app/AppContext"
 import { AvatarBox } from "../../layout/AvatarBox";
 import "./ProfileBanner.scss"

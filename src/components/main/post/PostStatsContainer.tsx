@@ -1,4 +1,4 @@
-import { Post } from "../../../api/posts/Post";
+import { Post } from "@twit2/std-library-fe";
 import "./PostStatsContainer.scss";
 
 interface PostStatsContainerProps {

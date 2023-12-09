@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { Post } from "../../../api/posts/Post";
-import { PartialUser } from "../../../api/user/PartialUser";
+import { Post } from "@twit2/std-library-fe";
+import { PartialUser } from "@twit2/std-library-fe";
 import "./PostComponent.scss";
 import { DropDownButton } from "../../basic/DropDownButton";
 import { DropDownMenuItem } from "../../basic/DropDownMenu";

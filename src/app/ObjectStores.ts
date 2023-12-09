@@ -1,6 +1,6 @@
-import { Post } from "../api/posts/Post";
-import { PartialUser } from "../api/user/PartialUser";
-import { APIObjectStore } from "../api/util/APIObjectStore";
+import { Post } from "@twit2/std-library-fe";
+import { PartialUser } from "@twit2/std-library-fe";
+import { APIObjectStore } from "@twit2/std-library-fe";
 
 export const ObjectStores = {
     user: new APIObjectStore<PartialUser>(`/user/%ID%`),

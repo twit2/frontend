@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { PartialUser } from "../../../../api/user/PartialUser"
+import { PartialUser } from "@twit2/std-library-fe"
 import { Form } from "../../../form/Form"
 import { FormInputField } from "../../../form/FormInputField"
 import { LoadingContainer } from "../../../basic/LoadingContainer"

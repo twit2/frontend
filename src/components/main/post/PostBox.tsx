@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Post } from "../../../api/posts/Post";
-import { PaginatedAPIData } from "../../../api/PaginatedAPIData";
+import { Post } from "@twit2/std-library-fe";
+import { PaginatedAPIData } from "@twit2/std-library-fe";
 import { AppContext } from "../../../app/AppContext";
 import { LoadBox } from "../LoadBox";
 import { useNavigate } from "react-router-dom";
-import { PartialUser } from "../../../api/user/PartialUser";
+import { PartialUser } from "@twit2/std-library-fe";
 import { PostComponent } from "./PostComponent";
 import { PostManager } from "../../../app/PostManager";
 import { MessageListItem } from "../../layout/lists/MessageListItem";

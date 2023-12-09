@@ -1,1 +1,0 @@
-export const fileToBase64 = async (file: File) => `data:${file.type};base64,${btoa(String.fromCharCode(...new Uint8Array(await file.arrayBuffer())))}`;

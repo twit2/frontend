@@ -1,4 +1,4 @@
-import { PartialUser } from "../api/user/PartialUser";
+import { PartialUser } from "@twit2/std-library-fe";
 import { DialogArgs } from "../ui/wm/dlg/DialogArgs";
 
 // Represents the current app context

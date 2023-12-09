@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { Post } from "../../../api/posts/Post";
+import { Post } from "@twit2/std-library-fe";
 import { TitleHeader } from "../../../components/layout/TitleHeader";
 import { useParams } from "react-router-dom";
-import { PartialUser } from "../../../api/user/PartialUser";
+import { PartialUser } from "@twit2/std-library-fe";
 import { LoadingContainer } from "../../../components/basic/LoadingContainer";
 import { PostComponent } from "../../../components/main/post/PostComponent";
 import { AppContext } from "../../../app/AppContext";
 import { ReplyBox } from "../../../components/post/ReplyBox";
 import { PostBox, PostBoxMode } from "../../../components/main/post/PostBox";
 import { PostManager } from "../../../app/PostManager";
-import { APIError } from "../../../api/APIError";
+import { APIError } from "@twit2/std-library-fe";
 import { MessageListItem } from "../../../components/layout/lists/MessageListItem";
 
 export const PostView = ()=> {

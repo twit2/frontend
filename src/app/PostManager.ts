@@ -1,6 +1,6 @@
-import { assertResponse, sendAPIRequest } from "../api/APIRequester";
-import { PaginatedAPIData } from "../api/PaginatedAPIData";
-import { Post } from "../api/posts/Post";
+import { assertResponse, sendAPIRequest } from "@twit2/std-library-fe";
+import { PaginatedAPIData } from "@twit2/std-library-fe";
+import { Post } from "@twit2/std-library-fe";
 import { ObjectStores } from "./ObjectStores"
 import { CreatePostOp } from "./op/post/CreatePostOp";
 import { EditPostOp } from "./op/post/EditPostOp";

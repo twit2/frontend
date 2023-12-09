@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { PartialUser } from "../../api/user/PartialUser"
+import { PartialUser } from "@twit2/std-library-fe"
 import { AppContext } from "../../app/AppContext"
 import { ProfileListItem } from "./ProfileListItem"
-import { PaginatedAPIData } from "../../api/PaginatedAPIData";
+import { PaginatedAPIData } from "@twit2/std-library-fe";
 import { LoadBox } from "./LoadBox";
 import { UserManager } from "../../app/UserManager";
 

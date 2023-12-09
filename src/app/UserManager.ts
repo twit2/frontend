@@ -1,8 +1,8 @@
-import { APIConfiguration } from "../api/APIConfiguration";
-import { assertResponse, sendAPIRequest } from "../api/APIRequester";
-import { PaginatedAPIData } from "../api/PaginatedAPIData";
-import { DataObject } from "../api/cdn/DataObject";
-import { PartialUser } from "../api/user/PartialUser";
+import { APIConfiguration } from "@twit2/std-library-fe";
+import { assertResponse, sendAPIRequest } from "@twit2/std-library-fe";
+import { PaginatedAPIData } from "@twit2/std-library-fe";
+import { DataObject } from "@twit2/std-library-fe";
+import { PartialUser } from "@twit2/std-library-fe";
 import { AppContext } from "./AppContext";
 import { ObjectStores } from "./ObjectStores";
 import { UserChangeOp } from "./op/user/UserChangeOp";
