@@ -16,6 +16,8 @@ export const ProfileEditDialog = (props: { user: PartialUser })=>{
     let [displayName, setDisplayName] = useState(props.user.displayName ?? '');
     let [biography, setBiography] = useState(props.user.biography ?? '');
     let [avatarFile, setAvatarFile] = useState<File>();
+    let [bannerFile, setBannerFile] = useState<File>();
+
     let nav = useNavigate();
 
     async function saveChanges() {
@@ -38,12 +40,20 @@ export const ProfileEditDialog = (props: { user: PartialUser })=>{
         }
 
         // Update the profile picture
-
         try {
             if(avatarFile)
                 await UserManager.updateAvatar(avatarFile);
         } catch(e) {
             AppContext.ui.createDlg({ title: "Error", content: "Could not update profile picture." });
+            return;
+        }
+
+        // Update the banner picture
+        try {
+            if(bannerFile)
+                await UserManager.updateBanner(bannerFile);
+        } catch(e) {
+            AppContext.ui.createDlg({ title: "Error", content: "Could not update banner picture." });
             return;
         }
 
@@ -54,9 +64,14 @@ export const ProfileEditDialog = (props: { user: PartialUser })=>{
     return <div className="dlg-profile-edit" style={{ minWidth: 350 }}>
         { busy ? <LoadingContainer/> : <>
             <Form>
-                <BannerPreviewBox user={props.user} onchange={(v)=>{
-                    setAvatarFile(v);
+                <BannerPreviewBox user={props.user} onchange={(avatarFile, bannerFile)=>{
+                    if(avatarFile)
+                        setAvatarFile(avatarFile);
+
+                    if(bannerFile)
+                        setBannerFile(bannerFile);
                 }}/>
+
                 <FormInputField label="Display Name" type="text" value={displayName} onchange={(t)=>setDisplayName(t)}/>
                 <FormInputField label="Biography" type="text" value={biography} extended={true} onchange={(b)=>setBiography(b)}/>
                 <div className="counter" style={{ color: (biography.length > CHRS_MAX) ? 'red' : undefined, textAlign: 'right' }}>{biography.length}/{CHRS_MAX}</div>

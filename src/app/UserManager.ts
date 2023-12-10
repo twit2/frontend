@@ -79,6 +79,14 @@ function getAvatarURL(user: PartialUser): string|undefined {
 }
 
 /**
+ * Returns a banner URL.
+ */
+function getBannerURL(user: PartialUser): string|undefined {
+    if(user.bannerURL)
+        return `${APIConfiguration.apiCdnUrl}${user.bannerURL}`;
+}
+
+/**
  * Updates the current user's avatar.
  * @param user The user to update the avatar for.
  */
@@ -92,6 +100,25 @@ async function updateAvatar(f: File) {
     // Update user object
     const user = await ObjectStores.user.get((AppContext.currentUser as PartialUser).id);
     user.avatarURL = dObj.urlPart;
+    ObjectStores.user.update(user);
+    
+    return dObj;
+}
+
+/**
+ * Updates the current user's banner.
+ * @param user The user to update the banner for.
+ */
+async function updateBanner(f: File) {
+    const formData = new FormData();
+    formData.append('files', f);
+
+    const cdnResponse = assertResponse<DataObject[]>(await sendAPIRequest<DataObject[]>(`${CDN_ENDPOINT}/banners`, "POST", formData));
+    const dObj = (cdnResponse.data as DataObject[])[0];
+
+    // Update user object
+    const user = await ObjectStores.user.get((AppContext.currentUser as PartialUser).id);
+    user.bannerURL = dObj.urlPart;
     ObjectStores.user.update(user);
     
     return dObj;
@@ -120,6 +147,8 @@ export const UserManager = {
     getUserByName,
     getUserById,
     getAvatarURL,
+    getBannerURL,
     updateAvatar,
+    updateBanner,
     getBadges
 }

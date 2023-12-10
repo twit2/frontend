@@ -16,7 +16,9 @@ export const ProfileBanner = (props: { user: PartialUser }) => {
         });
     };
 
-    return <div className="ui-pfbanner">
+    const oldBanner = UserManager.getBannerURL(props.user);
+
+    return <div className="ui-pfbanner" style={oldBanner ? {backgroundImage: `url(${oldBanner})`} : {}}>
         <div className="profile">
             <AvatarBox user={props.user}/>
             <div className="information">

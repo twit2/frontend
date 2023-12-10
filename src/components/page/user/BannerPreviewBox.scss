@@ -1,4 +1,5 @@
 @import "../../../style/mixins/ProfilePicture.scss";
+@import "../../../style/colors.scss";
 
 .ui-pb-preview {
     margin-bottom: 6em;
@@ -7,6 +8,23 @@
         width: 534px;
         height: 198px;
         background-color: #111111;
+        background-position: center;
+        background-size: cover;
+
+        &:hover {
+            cursor: pointer;
+            filter: brightness(0.8);
+
+            &::after {
+                content: 'Select banner';
+                color: white;
+                text-shadow: 1px 1px black;
+                display: flex;
+                height: 100%;
+                align-items: center;
+                justify-content: center;
+            }
+        }
     }
 
     >.avatar {
@@ -16,7 +34,8 @@
         transform-origin: center;
         position: absolute;
         transform: translateX(10px) translateY(-50%);
-        border: 2px solid black;
+        border: 2px solid $colorPrimary;
+        box-sizing: border-box;
 
         &:hover {
             cursor: pointer;
