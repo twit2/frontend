@@ -11,12 +11,15 @@ export const DiscoverView = ()=>{
         <TitleHeader title={"Discover"} />
         <TabControl pages={[
             { id: "posts", label: "Posts" },
-            { id: "users", label: "Users" }
+            { id: "users", label: "Users" },
+            { id: "verified", label: "Verified Users" }
         ]} activeTab="posts" ontab={(id)=>setActiveTab(id)}/>
         { (() => {
             switch(activeTab) {
                 case "users":
                     return <ProfileList mode={ProfileListMode.Latest} target={""}/>
+                case "verified":
+                    return <ProfileList mode={ProfileListMode.Verified} target={""}/>
                 case "posts":
                 default:
                     return <PostBox mode={PostBoxMode.LatestPosts} target={""}/>;

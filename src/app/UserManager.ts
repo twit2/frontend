@@ -59,10 +59,11 @@ async function updateUserProfile(changes: UserChangeOp) {
 
 /**
  * Gets the latest user profiles.
+ * @param filter The filter to use.
  * @param page The page of profiles to retrieve.
  */
-async function getLatestProfiles(page: number): Promise<PaginatedAPIData<PartialUser>> {
-    const usersResp : PaginatedAPIData<PartialUser> = assertResponse(await sendAPIRequest<PaginatedAPIData<PartialUser>>(`${USER_ENDPOINT}/latest/${page}`, "GET"), {
+async function getLatestProfiles(filter: "latest"|"verified"|"unverified", page: number): Promise<PaginatedAPIData<PartialUser>> {
+    const usersResp : PaginatedAPIData<PartialUser> = assertResponse(await sendAPIRequest<PaginatedAPIData<PartialUser>>(`${USER_ENDPOINT}/${filter}/${page}`, "GET"), {
         dataRequired: true
     }).data as PaginatedAPIData<PartialUser>;
 
