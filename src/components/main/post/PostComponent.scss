@@ -49,6 +49,7 @@
         // Content pane
         .right {
             flex: 1;
+            overflow: hidden;
     
             .user-info {
                 margin-bottom: 10px;
@@ -80,6 +81,8 @@
     
             .text-content {
                 white-space: pre-line;
+                line-height: 1.4;
+                word-break: break-word;
             }
     
             .date-marker {
