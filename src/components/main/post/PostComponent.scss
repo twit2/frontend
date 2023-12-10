@@ -67,6 +67,10 @@
                     &:visited {
                         color: $colorSecondary;
                     }
+
+                    .badge {
+                        vertical-align: top;
+                    }
                 }
     
                 >.uname {

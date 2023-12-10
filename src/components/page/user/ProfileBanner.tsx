@@ -3,6 +3,8 @@ import { AppContext } from "../../../app/AppContext"
 import { AvatarBox } from "../../layout/AvatarBox";
 import "./ProfileBanner.scss"
 import { ProfileEditDialog } from "./dialogs/ProfileEditDialog";
+import { BadgeContainer } from "./BadgeContainer";
+import { UserManager } from "../../../app/UserManager";
 
 export const ProfileBanner = (props: { user: PartialUser }) => {
     const showEditDialog = ()=>{
@@ -19,7 +21,7 @@ export const ProfileBanner = (props: { user: PartialUser }) => {
             <AvatarBox user={props.user}/>
             <div className="information">
                 { props.user.displayName !== '' ? <>
-                    <div className="name">{props.user.displayName}</div>
+                    <div className="name">{props.user.displayName} <BadgeContainer badges={UserManager.getBadges(props.user)}/></div>
                     <div className="username">@{props.user.username}</div>
                 </> : <div className="name">@{props.user.username}</div> }
                 <div className="extra-box">

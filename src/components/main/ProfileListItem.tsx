@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom"
 import { PartialUser } from "@twit2/std-library-fe"
 import "./ProfileListItem.scss";
 import { AvatarBox } from "../layout/AvatarBox";
+import { BadgeContainer } from "../page/user/BadgeContainer";
+import { UserManager } from "../../app/UserManager";
 
 export const ProfileListItem = (props: { target: PartialUser })=>{
     const nav = useNavigate();
@@ -13,7 +15,7 @@ export const ProfileListItem = (props: { target: PartialUser })=>{
         <div className="right">
             <div className="user-info">
                 <div className="combo">
-                    <span className="dname" onClick={()=>nav(`/user/@${props.target?.username}`)}>{(props.target?.displayName !== '') ? props.target?.displayName : props.target?.username}</span> 
+                    <span className="dname" onClick={()=>nav(`/user/@${props.target?.username}`)}>{(props.target?.displayName !== '') ? props.target?.displayName : props.target?.username} <BadgeContainer badges={UserManager.getBadges(props.target)}/></span> 
                     <span className="uname"> @{props.target?.username}</span>
                 </div>
                 <button>Follow</button>

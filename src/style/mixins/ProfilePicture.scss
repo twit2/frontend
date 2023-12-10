@@ -1,5 +1,3 @@
-@use "./_media.scss";
-
 @mixin profile-picture($url) {
     background-image: $url;
     background-color: #5b5b5b;

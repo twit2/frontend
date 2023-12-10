@@ -1,0 +1,16 @@
+.ui-badges {
+    >.badge {
+        display: inline-block;
+        margin-top: auto;
+        margin-bottom: auto;
+        height: 1rem;
+        width: 1rem;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        
+        &.verified {
+            background-image: url(../../../assets/icons/svg/status/verified.svg);
+        }
+    }
+}

@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import { ObjectStores } from "../../../app/ObjectStores";
 import { PostStatsContainer } from "./PostStatsContainer";
 import { AvatarBox } from "../../layout/AvatarBox";
+import { BadgeContainer } from "../../page/user/BadgeContainer";
+import { UserManager } from "../../../app/UserManager";
 
 export const PostComponent = (props: { post: Post, static: boolean, onclick?: (user?: PartialUser)=>void })=>{
     const nav = useNavigate();
@@ -68,7 +70,7 @@ export const PostComponent = (props: { post: Post, static: boolean, onclick?: (u
             </div>
             <div className="right">
                 <div className="user-info">
-                    <span className="dname" onClick={()=>nav(`/user/@${user?.username}`)}>{(user?.displayName !== '') ? user?.displayName : user?.username}</span> 
+                    <span className="dname" onClick={()=>nav(`/user/@${user?.username}`)}>{(user?.displayName !== '') ? user?.displayName : user?.username} <BadgeContainer badges={UserManager.getBadges(user as PartialUser)}/></span> 
                     <span className="uname"> @{user?.username}</span>
                     <DropDownButton items={dropdownItems} args={props.post}/>
                 </div>

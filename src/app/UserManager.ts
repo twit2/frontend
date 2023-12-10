@@ -97,6 +97,22 @@ async function updateAvatar(f: File) {
     return dObj;
 }
 
+/**
+ * Gets badges for the specified user Id.
+ * @param id The user ID to get badges for.
+ */
+function getBadges(user: PartialUser): string[] {
+    if(!user)
+        return [];
+
+    const badges : string[] = [];
+
+    if(user.verified)
+        badges.push("verified");
+
+    return badges;
+}
+
 export const UserManager = {
     getLatestProfiles,
     updateUserProfile,
@@ -104,5 +120,6 @@ export const UserManager = {
     getUserByName,
     getUserById,
     getAvatarURL,
-    updateAvatar
+    updateAvatar,
+    getBadges
 }
