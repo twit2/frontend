@@ -2,7 +2,6 @@ import { useState } from "react";
 import { PartialUser } from "@twit2/std-library-fe";
 import { AvatarBox } from "../../layout/AvatarBox";
 import "./BannerPreviewBox.scss";
-import { fileToBase64 } from "@twit2/std-library-fe";
 
 interface BannerPreviewBoxProps {
     user: PartialUser;
@@ -20,7 +19,11 @@ export const BannerPreviewBox = (props: BannerPreviewBoxProps)=>{
             
             input.onchange = async (e: any) => { 
                 const file = e.target.files[0] as File; 
-                setReplImage(await fileToBase64(file));
+
+                if(replImage)
+                    URL.revokeObjectURL(replImage);
+
+                setReplImage(URL.createObjectURL(file));
                 props.onchange(file);
             }
             
