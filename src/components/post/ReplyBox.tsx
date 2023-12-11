@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom"
-import { Post } from "@twit2/std-library-fe"
-import { PartialUser } from "@twit2/std-library-fe"
-import "./ReplyBox.scss";
+import { Post, PartialUser } from "@twit2/std-library-fe"
 import { useState } from "react";
 import { ErrorBox } from "../form/ErrorBox";
 import { PostManager } from "../../app/PostManager";
 import { AvatarBox } from "../layout/AvatarBox";
+import "./ReplyBox.scss";
 
 export const ReplyBox = (props: { user: PartialUser, post: Post })=>{
     const nav = useNavigate();

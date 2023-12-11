@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Post } from "@twit2/std-library-fe";
-import { PartialUser } from "@twit2/std-library-fe";
-import "./PostComponent.scss";
+import { Post, PartialUser } from "@twit2/std-library-fe";
 import { DropDownButton } from "../../basic/DropDownButton";
 import { DropDownMenuItem } from "../../basic/DropDownMenu";
 import { AppContext } from "../../../app/AppContext";
@@ -13,6 +11,7 @@ import { PostStatsContainer } from "./PostStatsContainer";
 import { AvatarBox } from "../../layout/AvatarBox";
 import { BadgeContainer } from "../../page/user/BadgeContainer";
 import { UserManager } from "../../../app/UserManager";
+import "./PostComponent.scss";
 
 export const PostComponent = (props: { post: Post, static: boolean, onclick?: (user?: PartialUser)=>void })=>{
     const nav = useNavigate();

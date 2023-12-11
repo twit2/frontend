@@ -1,7 +1,7 @@
 import "./NewPostDialog.scss";
 
-import { ErrorBox } from "../../../components/form/ErrorBox"
-import { PostEditorComponent } from "../../../components/post/PostEditorComponent"
+import { ErrorBox } from "../../../components/form/ErrorBox";
+import { PostEditorComponent } from "../../../components/post/PostEditorComponent";
 import { useState } from "react";
 import { Post } from "@twit2/std-library-fe";
 import { PostManager } from "../../../app/PostManager";
@@ -28,12 +28,12 @@ export const NewPostDialog = (props: { mode: PostDialogMode, prev?: Post }) => {
 
         try {
             switch(props.mode) {
-                default:
-                case PostDialogMode.Create:
-                    await PostManager.createPost({ textContent: postText });
-                    break;
                 case PostDialogMode.Edit:
                     await PostManager.editPost(props.prev?.id as string, { textContent: postText });
+                    break;
+                case PostDialogMode.Create:
+                default:
+                    await PostManager.createPost({ textContent: postText });
                     break;
             }
 

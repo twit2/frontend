@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { LoadingContainer } from "../../components/basic/LoadingContainer";
 import { Sidebar } from "../../components/layout/Sidebar";
 import "./MainPage.scss";
-import { PartialUser } from "@twit2/std-library-fe";
+import { PartialUser, APIError } from "@twit2/std-library-fe";
 import { Outlet, useNavigate } from "react-router-dom";
 import { DialogContainer } from "../../components/wm/DialogContainer";
 import { NewPostDialog, PostDialogMode } from "./dialogs/NewPostDialog";
@@ -13,7 +13,6 @@ import { AppContext } from "../../app/AppContext";
 import { DialogArgs } from "../wm/dlg/DialogArgs";
 import { BasicDialog } from "../../components/wm/BasicDialog";
 import { UserManager } from "../../app/UserManager";
-import { APIError } from "@twit2/std-library-fe";
 
 enum DialogId {
     None = 0,
