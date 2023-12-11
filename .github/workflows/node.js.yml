@@ -76,10 +76,35 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   # TODO insert E2E!!
+  e2e:
+    needs: sonarcloud
+    name: Run E2E tests on self hosted runner
+    runs-on: self-hosted
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v3
+
+      - name: Download the build folder
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: build
+
+      - name: Check out meta repository for compose
+        uses: actions/checkout@v3
+        with:
+          repository: 'twit2/twit2'
+          path: 'twit2'
+
+      - name: Run production compose
+        run: |
+          cd twit2
+          bash -e start-prod.sh
 
   # Build docker image and publish to docker hub
   publish:
-    needs: sonarcloud
+    needs: e2e
     name: Publish to Docker Hub
     runs-on: ubuntu-latest
 
