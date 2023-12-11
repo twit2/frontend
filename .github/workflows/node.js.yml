@@ -35,9 +35,9 @@ jobs:
     - name: Store artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: dist
+        name: build
         if-no-files-found: error
-        path: dist
+        path: build
 
   # Run sonarcloud
   sonarcloud:
