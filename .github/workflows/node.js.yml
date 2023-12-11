@@ -75,7 +75,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  # TODO insert E2E!!
+  # E2E job
   e2e:
     needs: sonarcloud
     name: Run E2E tests on self hosted runner
