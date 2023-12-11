@@ -41,7 +41,7 @@ jobs:
 
   # Run sonarcloud
   sonarcloud:
-    needs: test
+    needs: build
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
