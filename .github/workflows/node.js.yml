@@ -79,6 +79,7 @@ jobs:
   e2e:
     needs: sonarcloud
     name: Run E2E tests on self hosted runner
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
