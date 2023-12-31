@@ -54,6 +54,15 @@
 
                 >.info {
                     flex: 1;
+
+                    .follow, .followed {
+                        color: darkgray;
+
+                        &:hover {
+                            cursor: pointer;
+                            color: $colorSecondary
+                        }
+                    }
                 }
 
                 >button {

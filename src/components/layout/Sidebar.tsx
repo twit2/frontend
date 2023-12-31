@@ -37,7 +37,7 @@ export const Sidebar = (props: SidebarProps)=> {
     const links : SidebarLink[] = [
         { name: "Feed", link: "/feed", selected: false },
         { name: "Discover", link: "/discover", selected: false },
-        { name: "Notifications", link: "/notifications", selected: false },
+        // { name: "Notifications", link: "/notifications", selected: false },
         { name: "Messages", link: "/dm", selected: false },
         { name: "Profile", link: "/user/@%U".replace("%U", props.username), selected: false },
         { name: "Settings", link: "/settings", selected: false }

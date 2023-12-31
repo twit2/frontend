@@ -7,7 +7,7 @@ export const AccountView = ()=><div className="sv-account">
         <button>Change...</button>
     </DescriptiveButton>
 
-    <DescriptiveButton title="Change account username" description="This change will invalidate all old profile links.">
+    {/* <DescriptiveButton title="Change account username" description="This change will invalidate all old profile links.">
         <button>Change...</button>
-    </DescriptiveButton>
+    </DescriptiveButton> */}
 </div>
