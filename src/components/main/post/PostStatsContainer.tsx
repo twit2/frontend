@@ -25,7 +25,7 @@ export const StatButton = (props: StatButtonProps) => {
 
 export const PostStatsContainer = (props: PostStatsContainerProps) => {
     return <div className="ui-post-stats">
-        <StatButton icon="reply" count={0}/>
-        <StatButton icon="like" count={0}/>
+        <StatButton icon="reply" count={props.post.stats.replies}/>
+        <StatButton icon="like" count={props.post.stats.likes}/>
     </div>
 }
