@@ -12,6 +12,7 @@ import { AvatarBox } from "../../layout/AvatarBox";
 import { BadgeContainer } from "../../page/user/BadgeContainer";
 import { UserManager } from "../../../app/UserManager";
 import "./PostComponent.scss";
+import { STParser } from "../../../app/util/SpecialTextParser";
 
 export const PostComponent = (props: { post: Post, static: boolean, onclick?: (user?: PartialUser)=>void })=>{
     const nav = useNavigate();
@@ -73,8 +74,8 @@ export const PostComponent = (props: { post: Post, static: boolean, onclick?: (u
                     <span className="uname"> @{user?.username}</span>
                     <DropDownButton items={dropdownItems} args={props.post}/>
                 </div>
-                <div className="text-content">
-                    { props.post.textContent }
+                <div className="text-content st-body">
+                    { STParser.parse(props.post.textContent) }
                     { (props.post.dateEdited != null) ? <span className="edited-indicator"> (edited)</span> : '' }
                 </div>
                 <div className="date-marker">
