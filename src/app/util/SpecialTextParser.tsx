@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import "./SpecialTextParser.scss";
 
 const TOKENS = {
@@ -19,11 +20,12 @@ function parse(text: String) {
     const components : JSX.Element[] = [];
 
     let buffer = "";
+    let itemc = 0;
 
     // Make tokens
     for(let x = 0; x < text.length; x++) {
         if(isToken(text[x])) { // always flush buffer first
-            components.push(<>{buffer}</>);
+            components.push(<Fragment key={`buf${itemc++}`}>{buffer}</Fragment>);
             buffer = "";
         }
 
@@ -40,7 +42,7 @@ function parse(text: String) {
             }
 
             x += username.length;
-            components.push(<a className="link" href={`/user/@${username}`}>@{username}</a>);
+            components.push(<a key={`el${itemc++}`} className="link" href={`/user/@${username}`}>@{username}</a>);
 
             continue;
         }
@@ -49,13 +51,13 @@ function parse(text: String) {
     }
 
     if(buffer !== "") {
-        components.push(<>{buffer}</>);
+        components.push(<Fragment key={`buf${itemc++}`}>{buffer}</Fragment>);
         buffer = "";
     }
 
-    return <>
+    return <Fragment>
         { components }
-    </>;
+    </Fragment>
 }
 
 export const STParser = {
