@@ -9,8 +9,8 @@ async function init() {
     if(socket)
         return; // Do not let user reinit twice by accident
     
-    socket = io(`${APIConfiguration.apiGwUrl}/${DM_URL}`);
-    console.log("DM client starting...");
+    // socket = io(`${APIConfiguration.apiGwUrl}/${DM_URL}`);
+    // console.log("DM client starting...");
     
 }
 

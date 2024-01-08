@@ -8,6 +8,23 @@ export enum RelationsViewType {
     blocked = 3
 }
 
+/**
+ * Gets the title string for a relationship type.
+ * @param target The user target.
+ * @param type The relationship type.
+ * @returns 
+ */
+function getTitleString(target: string, type: RelationsViewType) {
+    switch(type) {
+        case RelationsViewType.followers:
+            return `${target}'s followers`;
+        case RelationsViewType.following:
+            return `${target}'s followed users`;
+        case RelationsViewType.blocked:
+            return `${target}'s blocked users`;
+    }
+}
+
 export const RelationsView = (props: { type: RelationsViewType })=>{
     const params = useParams();
     const targetUsername = params.name as string;
@@ -17,6 +34,6 @@ export const RelationsView = (props: { type: RelationsViewType })=>{
     });
     
     return <div className="view profile">
-        <TitleHeader title={`${targetUsername}'s followers`} backAction={true}/>
+        <TitleHeader title={getTitleString(targetUsername, props.type)} backAction={true}/>
     </div>
 }
