@@ -1,4 +1,3 @@
-import { APIConfiguration } from "@twit2/std-library-fe";
 import { io } from "socket.io-client";
 
 export const DM_URL = `/dm`;
