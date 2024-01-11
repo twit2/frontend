@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 import { TitleHeader } from "../../../components/layout/TitleHeader"
 import { useEffect } from "react";
+import { ProfileList, ProfileListMode } from "../../../components/main/ProfileList";
 
 export enum RelationsViewType {
     followers = 1,
@@ -35,5 +36,6 @@ export const RelationsView = (props: { type: RelationsViewType })=>{
     
     return <div className="view profile">
         <TitleHeader title={getTitleString(targetUsername, props.type)} backAction={true}/>
+        <ProfileList mode={ProfileListMode.Latest} target={targetUsername}/>
     </div>
 }

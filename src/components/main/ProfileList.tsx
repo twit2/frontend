@@ -4,6 +4,7 @@ import { AppContext } from "../../app/AppContext";
 import { ProfileListItem } from "./ProfileListItem";
 import { LoadBox } from "./LoadBox";
 import { UserManager } from "../../app/UserManager";
+import { RelationsManager } from "../../app/RelationsManager";
 
 export enum ProfileListMode {
     Latest,
@@ -30,6 +31,12 @@ export const ProfileList = (props: { mode: ProfileListMode, target: string })=>{
                 case ProfileListMode.Verified:
                     userResp = await UserManager.getLatestProfiles('verified', page);
                     break;
+                case ProfileListMode.Followers:
+                case ProfileListMode.Following: {
+                    //let relationsResp = (props.mode === ProfileListMode.Followers) ? await RelationsManager.getFollowers(props.target) : await RelationsManager.getFollowList(props.target);
+                    //userResp = { data: [] } as any;
+                    break;
+                }
                 case ProfileListMode.Latest:
                 default:
                     userResp = await UserManager.getLatestProfiles('latest', page);
