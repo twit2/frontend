@@ -33,7 +33,6 @@ export const ProfileList = (props: { mode: ProfileListMode, target: string })=>{
                     break;
                 case ProfileListMode.Followers:
                 case ProfileListMode.Following: {
-                    console.log("Getting...");
                     userResp = await RelationsManager.getRelationsList((props.mode === ProfileListMode.Followers) ? 'followers' : 'following', props.target.substring(1), page);
                     break;
                 }
