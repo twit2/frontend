@@ -33,8 +33,7 @@ export const ProfileList = (props: { mode: ProfileListMode, target: string })=>{
                     break;
                 case ProfileListMode.Followers:
                 case ProfileListMode.Following: {
-                    //let relationsResp = (props.mode === ProfileListMode.Followers) ? await RelationsManager.getFollowers(props.target) : await RelationsManager.getFollowList(props.target);
-                    //userResp = { data: [] } as any;
+                    userResp = (props.mode === ProfileListMode.Followers) ? await RelationsManager.getFollowers(props.target) : await RelationsManager.getFollowing(props.target);
                     break;
                 }
                 case ProfileListMode.Latest:

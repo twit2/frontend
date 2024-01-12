@@ -1,5 +1,6 @@
 import { UserRelationStatistics } from "../../../svc-users/src/types/UserRelationStatistics";
-import { PartialUser,  assertResponse, sendAPIRequest } from "@twit2/std-library-fe";
+import { PaginatedAPIData, PartialUser,  assertResponse, sendAPIRequest } from "@twit2/std-library-fe";
+import { UserRelation } from "./types/Relation";
 
 export const USER_ENDPOINT = `/user`;
 
@@ -9,13 +10,37 @@ export const USER_ENDPOINT = `/user`;
  * @returns The stats object.
  */
 async function getRelationsStats(username: string): Promise<UserRelationStatistics> {
-    const relResp = assertResponse(await sendAPIRequest<PartialUser>(`${USER_ENDPOINT}/relations/stats/@${username}`, "GET"), {
+    const relResp = assertResponse(await sendAPIRequest<UserRelationStatistics>(`${USER_ENDPOINT}/relations/stats/@${username}`, "GET"), {
         dataRequired: true
     });
 
     return relResp.data as any;
 }
 
+/**
+ * Gets user followers.
+ */
+async function getFollowers(username: string) {
+    const relResp = assertResponse(await sendAPIRequest<PaginatedAPIData<PartialUser>>(`${USER_ENDPOINT}/relations/followers/@${username}`, "GET"), {
+        dataRequired: true
+    });
+
+    return relResp.data as PaginatedAPIData<PartialUser>;
+}
+
+/**
+ * Gets user follow list.
+ */
+async function getFollowing(username: string) {
+    const relResp = assertResponse(await sendAPIRequest<PaginatedAPIData<PartialUser>>(`${USER_ENDPOINT}/relations/following/@${username}`, "GET"), {
+        dataRequired: true
+    });
+
+    return relResp.data as PaginatedAPIData<PartialUser>;
+}
+
 export const RelationsManager = {
-    getRelationsStats
+    getRelationsStats,
+    getFollowers,
+    getFollowing
 }
