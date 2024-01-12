@@ -1,6 +1,7 @@
 import { UserRelationStatistics } from "../../../svc-users/src/types/UserRelationStatistics";
 import { PaginatedAPIData, PartialUser,  assertResponse, sendAPIRequest } from "@twit2/std-library-fe";
 import { UserRelation } from "./types/Relation";
+import { UserManager } from "./UserManager";
 
 export const USER_ENDPOINT = `/user`;
 
@@ -20,27 +21,33 @@ async function getRelationsStats(username: string): Promise<UserRelationStatisti
 /**
  * Gets user followers.
  */
-async function getFollowers(username: string) {
-    const relResp = assertResponse(await sendAPIRequest<PaginatedAPIData<PartialUser>>(`${USER_ENDPOINT}/relations/followers/@${username}`, "GET"), {
+async function getRelationsList(type: string, username: string, page: number) {
+    const relResp = assertResponse(await sendAPIRequest<PaginatedAPIData<UserRelation>>(`${USER_ENDPOINT}/relations/${type}/@${username}/${page}`, "GET"), {
         dataRequired: true
     });
 
-    return relResp.data as PaginatedAPIData<PartialUser>;
-}
+    const data = relResp.data as any;
+    
+    // Format the data from UserRelation -> User
+    const relations = data?.data as any[];
+    
+    for(let x = 0; x < relations.length; x++) {
+        switch(type) {
+            case "followers":
+                relations[x] = await UserManager.getUserById(relations[x].source);
+                break;
+            case "following":
+                relations[x] = await UserManager.getUserById(relations[x].dest);
+                break;
+            default:
+                throw new Error("Invalid type.");
+        }
+    }
 
-/**
- * Gets user follow list.
- */
-async function getFollowing(username: string) {
-    const relResp = assertResponse(await sendAPIRequest<PaginatedAPIData<PartialUser>>(`${USER_ENDPOINT}/relations/following/@${username}`, "GET"), {
-        dataRequired: true
-    });
-
-    return relResp.data as PaginatedAPIData<PartialUser>;
+    return data as PaginatedAPIData<PartialUser>;
 }
 
 export const RelationsManager = {
     getRelationsStats,
-    getFollowers,
-    getFollowing
+    getRelationsList
 }

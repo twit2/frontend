@@ -36,6 +36,6 @@ export const RelationsView = (props: { type: RelationsViewType })=>{
     
     return <div className="view profile">
         <TitleHeader title={getTitleString(targetUsername, props.type)} backAction={true}/>
-        <ProfileList mode={ProfileListMode.Latest} target={targetUsername}/>
+        <ProfileList mode={(props.type === RelationsViewType.followers) ? ProfileListMode.Followers : ProfileListMode.Following} target={targetUsername}/>
     </div>
 }
