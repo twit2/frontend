@@ -1,4 +1,4 @@
-import { PartialUser } from "@twit2/std-library-fe"
+import { PartialUser } from "@twit2/std-library-fe";
 import { AppContext } from "../../../app/AppContext"
 import { AvatarBox } from "../../layout/AvatarBox";
 import "./ProfileBanner.scss"
@@ -41,7 +41,7 @@ export const ProfileBanner = (props: { user: PartialUser, stats: UserRelationSta
                             <span className="follow" onClick={()=>nav('./followers')}>{props.stats.followers} follower{(props.stats.following === 1) ? 's' : ''}</span>
                         </div>
                     </div>
-                    { (props.user.id === (AppContext.currentUser ?? { id: '' }).id) ? <button onClick={()=>showEditDialog()}>Edit</button> : '' }
+                    { (props.user.id === (AppContext.currentUser ?? { id: '' }).id) ? <button onClick={()=>showEditDialog()}>Edit</button> : <button onClick={()=>showEditDialog()}>Follow</button> }
                 </div>
             </div>
         </div>

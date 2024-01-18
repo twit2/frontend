@@ -137,6 +137,14 @@ function getBadges(user: PartialUser): string[] {
     return badges;
 }
 
+/**
+ * Logs off the current user.
+ */
+async function logOff() {
+    localStorage.removeItem("auth-token");
+    window.location.href = "/";
+}
+
 export const UserManager = {
     getLatestProfiles,
     updateUserProfile,
@@ -147,5 +155,6 @@ export const UserManager = {
     getBannerURL,
     updateAvatar,
     updateBanner,
-    getBadges
+    getBadges,
+    logOff
 }

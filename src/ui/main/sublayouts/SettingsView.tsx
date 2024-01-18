@@ -4,6 +4,8 @@ import { CommandItem, CommandList } from "../../../components/layout/lists/Comma
 import { AboutView } from "./settings/AboutView";
 import { AccountView } from "./settings/AccountView";
 import "./SettingsView.scss";
+import { CenteredListButton } from "../../../components/basic/CenteredListButton";
+import { UserManager } from "../../../app/UserManager";
 
 const pages = [
     {
@@ -39,6 +41,7 @@ export const SettingsView = ()=>{
                 <CommandItem link="/settings/account" title="Account Settings" description="Modify account settings (username, password, etc.)" icon="accounts"/>
                 <CommandItem link="/settings/about" title="About Twit2" description="Project credits and version." icon="t2"/>
             </CommandList>
+            <CenteredListButton text="Log out" onclick={()=>UserManager.logOff()}/>
         </> }
     </div>
 }
