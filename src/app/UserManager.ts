@@ -2,6 +2,7 @@ import { APIConfiguration, PartialUser,  assertResponse, sendAPIRequest, Paginat
 import { AppContext } from "./AppContext";
 import { ObjectStores } from "./ObjectStores";
 import { UserChangeOp } from "./op/user/UserChangeOp";
+import { AUTH_ENDPOINT } from "./AuthManager";
 
 export const USER_ENDPOINT = `/user`;
 export const CDN_ENDPOINT = `/cdn`;
@@ -145,6 +146,16 @@ async function logOff() {
     window.location.href = "/";
 }
 
+/**
+ * Sets a new account password.
+ * @param password The new password to use.
+ */
+async function updatePassword(password: string) {
+    assertResponse(await sendAPIRequest(`${AUTH_ENDPOINT}/password`, 'PATCH', {
+        password
+    }));
+}
+
 export const UserManager = {
     getLatestProfiles,
     updateUserProfile,
@@ -155,6 +166,7 @@ export const UserManager = {
     getBannerURL,
     updateAvatar,
     updateBanner,
+    updatePassword,
     getBadges,
     logOff
 }
