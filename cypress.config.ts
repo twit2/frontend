@@ -5,6 +5,6 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    baseUrl: 'http://tw2-app.local:8080'
+    baseUrl: 'http://tw2-app.local'
   },
 });
