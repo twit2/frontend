@@ -21,4 +21,4 @@ import './commands';
 
 Cypress.env("test-username", `cyuser_${Math.floor(Math.random() * 100000)}`);
 Cypress.env("test-password", 'test');
-Cypress.env("gateway-url", `http://api.tw2-app.local:8080/api/v1`);
+Cypress.env("gateway-url", `http://api.tw2-app.local/api/v1`);
