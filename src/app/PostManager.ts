@@ -68,6 +68,14 @@ async function getLatestPosts(page: number): Promise<PaginatedAPIData<Post>> {
 }
 
 /**
+ * Gets the latest feed posts.
+ * @param page The page to view.
+ */
+async function getLatestFeedPosts(page: number): Promise<PaginatedAPIData<Post>> {
+    return getPaginatedPostsData(`/feed/${page}`);
+}
+
+/**
  * Gets posts from a user.
  * @param userId The Id of the user to get posts from.
  * @param page The page to view.
@@ -90,6 +98,7 @@ export const PostManager = {
     createPost,
     deletePost,
     getLatestPosts,
+    getLatestFeedPosts,
     getUserPosts,
     getReplies,
     editPost

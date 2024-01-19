@@ -13,6 +13,7 @@ import { AppContext } from "../../app/AppContext";
 import { DialogArgs } from "../wm/dlg/DialogArgs";
 import { BasicDialog } from "../../components/wm/BasicDialog";
 import { UserManager } from "../../app/UserManager";
+import { DMClient } from "../../app/DMClient";
 
 enum DialogId {
     None = 0,
@@ -54,6 +55,9 @@ export const MainPage = ()=> {
                 const fetchedUser = await UserManager.getCurrentUser();
                 setUser(fetchedUser);
                 AppContext.currentUser = fetchedUser;
+
+                // Initialize DM client
+                DMClient.init();
             } catch(e) {
                 if(e instanceof APIError) {
                     if(e.resp.code === 1003) {

@@ -18,7 +18,7 @@ export const ProfileListItem = (props: { target: PartialUser })=>{
                     <span className="dname" onClick={()=>nav(`/user/@${props.target?.username}`)}>{(props.target?.displayName !== '') ? props.target?.displayName : props.target?.username} <BadgeContainer badges={UserManager.getBadges(props.target)}/></span> 
                     <span className="uname"> @{props.target?.username}</span>
                 </div>
-                <button>Follow</button>
+                {/* { (props.target.id === (AppContext.currentUser as PartialUser).id) ? '' : <button>Follow</button> } */}
             </div>
             { (props.target.biography !== undefined) ? <div className="text-content">
                 { props.target.biography }

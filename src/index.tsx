@@ -12,6 +12,7 @@ import { DiscoverView } from './ui/main/sublayouts/DiscoverView';
 import { MessagesView } from './ui/main/sublayouts/MessagesView';
 import { NotificationsView } from './ui/main/sublayouts/NotificationsView';
 import { SettingsView } from './ui/main/sublayouts/SettingsView';
+import { RelationsView, RelationsViewType } from './ui/main/sublayouts/RelationsView';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -31,6 +32,8 @@ export default function App() {
             <Route path="/feed" element={<FeedView/>}/>
             <Route path="/user/:name" element={<ProfileView/>} />
             <Route path="/user/:name/post/:id" element={<PostView/>} />
+            <Route path="/user/:name/following" element={<RelationsView type={RelationsViewType.following}/>} />
+            <Route path="/user/:name/followers" element={<RelationsView type={RelationsViewType.followers}/>} />
             <Route path="/settings" element={<SettingsView/>}/>
             <Route path="/settings/:page" element={<SettingsView/>}/>
           </Route>

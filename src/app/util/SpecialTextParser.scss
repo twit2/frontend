@@ -1,0 +1,12 @@
+@import "../../style/colors.scss";
+
+.st-body {
+    .link {
+        color: $colorAccent;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

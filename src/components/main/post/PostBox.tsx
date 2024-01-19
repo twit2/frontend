@@ -10,6 +10,7 @@ import { MessageListItem } from "../../layout/lists/MessageListItem";
 export enum PostBoxMode {
     ProfilePosts,
     LatestPosts,
+    FeedPosts,
     Replies
 }
 
@@ -31,6 +32,9 @@ export const PostBox = (props: { mode: PostBoxMode, target: string })=>{
                     break;
                 case PostBoxMode.LatestPosts:
                     postResp = await PostManager.getLatestPosts(page);
+                    break;
+                case PostBoxMode.FeedPosts:
+                    postResp = await PostManager.getLatestFeedPosts(page);
                     break;
                 case PostBoxMode.ProfilePosts:
                 default:
