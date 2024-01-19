@@ -1,9 +1,8 @@
 import { UserRelationStatistics } from "../../../svc-users/src/types/UserRelationStatistics";
 import { PaginatedAPIData, PartialUser,  assertResponse, sendAPIRequest } from "@twit2/std-library-fe";
 import { UserRelation } from "./types/Relation";
-import { UserManager } from "./UserManager";
-
-export const USER_ENDPOINT = `/user`;
+import { USER_ENDPOINT, UserManager } from "./UserManager";
+import { RelationState } from "./types/RelationState";
 
 /**
  * Gets user relationship statistics (e.g. number of followers, etc.)
@@ -47,7 +46,42 @@ async function getRelationsList(type: string, username: string, page: number) {
     return data as PaginatedAPIData<PartialUser>;
 }
 
+/**
+ * Follows a new user.
+ * @param targetUserId The target user ID to follow.
+ */
+async function follow(targetUserId: string) {
+    const relResp = assertResponse(await sendAPIRequest(`${USER_ENDPOINT}/relations/follow`, "POST", { dest: targetUserId }), {
+        dataRequired: true
+    });
+
+    return relResp.data as any;
+}
+
+/**
+ * Unfollows a new user.
+ * @param targetUserId The target user ID to follow.
+ */
+async function unfollow(targetUserId: string) {
+    const relResp = assertResponse(await sendAPIRequest(`${USER_ENDPOINT}/relations/follow`, "DELETE", { dest: targetUserId }));
+    return relResp.data as any;
+}
+
+/**
+ * Checks whether the target user has been followed.
+ */
+async function getRelationState(targetUserId: string): Promise<RelationState> {
+    const relResp = assertResponse(await sendAPIRequest<any>(`${USER_ENDPOINT}/relations/state/${targetUserId}`, "GET"), {
+        dataRequired: true
+    });
+
+    return relResp.data as any;
+}
+
 export const RelationsManager = {
+    follow,
+    unfollow,
+    getRelationState,
     getRelationsStats,
     getRelationsList
 }

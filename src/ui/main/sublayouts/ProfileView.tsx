@@ -10,12 +10,14 @@ import { PostBox, PostBoxMode } from "../../../components/main/post/PostBox";
 import { UserManager } from "../../../app/UserManager";
 import { RelationsManager } from "../../../app/RelationsManager";
 import { UserRelationStatistics } from "../../../app/types/UserRelationStatistics";
+import { RelationState } from "../../../app/types/RelationState";
 
 export const ProfileView = ()=>{
     const params = useParams();
     const targetUsername = params.name as string;
     const [user, setUser] = useState<PartialUser>();
     const [userStats, setUserStats] = useState<UserRelationStatistics>();
+    const [userRelState, setUserRelState] = useState<RelationState>();
     const [currentProfile, setCurrentProfile] = useState("");
     
     const fetchUser = async()=> {
@@ -25,8 +27,10 @@ export const ProfileView = ()=>{
             return;
 
         try {
-            setUser(await UserManager.getUserByName(targetUsername.substring(1)));
+            const uprofile = await UserManager.getUserByName(targetUsername.substring(1));
+            setUser(uprofile);
             setUserStats(await RelationsManager.getRelationsStats(targetUsername.substring(1)));
+            setUserRelState(await RelationsManager.getRelationState(uprofile.id));
         } catch(e) {
             AppContext.ui.createDlg({ title: "Error", content: "Failed to refresh user profile!" });
             console.error(e);
@@ -40,8 +44,8 @@ export const ProfileView = ()=>{
     
     return <div className="view profile">
         <TitleHeader title={targetUsername} backAction={true}/>
-        { ((user == null) || (userStats == null)) ? <LoadingContainer/> : <>
-            <ProfileBanner user={user} stats={userStats}/>
+        { ((user == null) || (userStats == null) || (userRelState == null)) ? <LoadingContainer/> : <>
+            <ProfileBanner user={user} stats={userStats} relationStatus={userRelState}/>
             <BiographyBox text={(user.biography === '') ? "(none provided)" : (user.biography as string)}/>
             <PostBox target={user.id} mode={PostBoxMode.ProfilePosts}/>
         </> }

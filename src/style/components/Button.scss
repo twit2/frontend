@@ -37,4 +37,9 @@ button {
         color: $colorPrimary;
         background-color: $colorSecondary;
     }
+
+    &.busy {
+        pointer-events: none;
+        filter: contrast(0.5);
+    }
 }
