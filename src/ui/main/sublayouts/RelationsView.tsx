@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom"
 import { TitleHeader } from "../../../components/layout/TitleHeader"
-import { useEffect } from "react";
 import { ProfileList, ProfileListMode } from "../../../components/main/ProfileList";
 
 export enum RelationsViewType {
@@ -29,10 +28,6 @@ function getTitleString(target: string, type: RelationsViewType) {
 export const RelationsView = (props: { type: RelationsViewType })=>{
     const params = useParams();
     const targetUsername = params.name as string;
-    
-    useEffect(()=>{
-        
-    });
     
     return <div className="view profile">
         <TitleHeader title={getTitleString(targetUsername, props.type)} backAction={true}/>

@@ -8,7 +8,7 @@ const TOKENS = {
 
 const USERNAME_REGEXP = /^[a-zA-Z0-9_]*$/;
 
-const isToken = (chr: String)=>{
+const isToken = (chr: string)=>{
     return (chr === TOKENS.USER_MENTION) || (chr === TOKENS.HASHTAG);
 };
 
@@ -16,7 +16,7 @@ const isToken = (chr: String)=>{
  * Parses SpecialText, a form of text which may include rich components (such as a user mention, link, etc.).
  * @param text The text to parse.
  */
-function parse(text: String) {
+function parse(text: string) {
     const components : JSX.Element[] = [];
 
     let buffer = "";

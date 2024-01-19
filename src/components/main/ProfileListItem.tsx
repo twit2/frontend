@@ -4,7 +4,6 @@ import "./ProfileListItem.scss";
 import { AvatarBox } from "../layout/AvatarBox";
 import { BadgeContainer } from "../page/user/BadgeContainer";
 import { UserManager } from "../../app/UserManager";
-import { AppContext } from "../../app/AppContext";
 
 export const ProfileListItem = (props: { target: PartialUser })=>{
     const nav = useNavigate();
