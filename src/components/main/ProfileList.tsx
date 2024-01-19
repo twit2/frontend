@@ -58,6 +58,7 @@ export const ProfileList = (props: { mode: ProfileListMode, target: string })=>{
         ]);
 
         setDone(true);
+        // eslint-disable-next-line
     }, [done, page, props.mode, users]);
 
     useEffect(()=>{
