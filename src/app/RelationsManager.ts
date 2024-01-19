@@ -1,4 +1,4 @@
-import { UserRelationStatistics } from "../../../svc-users/src/types/UserRelationStatistics";
+import { UserRelationStatistics } from "./types/UserRelationStatistics";
 import { PaginatedAPIData, PartialUser,  assertResponse, sendAPIRequest } from "@twit2/std-library-fe";
 import { UserRelation } from "./types/Relation";
 import { USER_ENDPOINT, UserManager } from "./UserManager";
